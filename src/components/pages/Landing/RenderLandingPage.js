@@ -1,7 +1,5 @@
 import React from 'react';
-import { Link, useHistory } from 'react-router-dom';
-import { useOktaAuth } from '@okta/okta-react';
-import { Layout, Button } from 'antd';
+import { Layout } from 'antd';
 import { Navbar } from '../../common';
 
 const { Footer, Content } = Layout;
