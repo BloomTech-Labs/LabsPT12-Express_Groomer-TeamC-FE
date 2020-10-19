@@ -1,0 +1,48 @@
+.banner-ctn {
+  height: 400px;
+  background: url(../../../images/landing_banner.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .banner-content {
+    text-align: center;
+
+    h1 {
+      font-size: 36pt;
+      color: #00c756;
+      text-shadow: 1px 1px 3px #007a35;
+      margin: 0;
+      padding: 0;
+    }
+
+    .img-ctn {
+      margin: 10px 0 20px 0;
+    }
+
+    .search-btn {
+      color: white;
+      background-color: #00c756;
+      border: none;
+    }
+  }
+}
+
+.content-ctn {
+  margin: 0 50px;
+  padding: 50px 0;
+  height: 600px;
+
+  h1 {
+    text-align: center;
+    font-size: 24pt;
+  }
+
+  .mid-grid {
+    text-align: center;
+    display: flex;
+    justify-content: space-evenly;
+  }
+}
