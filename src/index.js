@@ -16,6 +16,8 @@ import { LoginPage } from './components/pages/Login';
 import { config } from './utils/oktaConfig';
 import { LoadingComponent } from './components/common';
 
+import ClientState from './state/client/ClientState';
+
 ReactDOM.render(
   <Router>
     <React.StrictMode>
@@ -38,16 +40,18 @@ function App() {
 
   return (
     <Security {...config} onAuthRequired={authHandler}>
-      <Switch>
-        <Route exact path="/" component={LandingPage} />
-        <Route path="/login" component={LoginPage} />
-        <Route path="/implicit/callback" component={LoginCallback} />
-        <SecureRoute
-          path="/home"
-          exact
-          component={() => <HomePage LoadingComponent={LoadingComponent} />}
-        />
-      </Switch>
+      <ClientState>
+        <Switch>
+          <Route exact path="/" component={LandingPage} />
+          <Route path="/login" component={LoginPage} />
+          <Route path="/implicit/callback" component={LoginCallback} />
+          <SecureRoute
+            path="/home"
+            exact
+            component={() => <HomePage LoadingComponent={LoadingComponent} />}
+          />
+        </Switch>
+      </ClientState>
     </Security>
   );
 }
