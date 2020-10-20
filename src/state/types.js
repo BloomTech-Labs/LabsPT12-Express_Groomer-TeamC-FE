@@ -1,0 +1,2 @@
+export const GET_CLIENT = 'GET_CLIENT';
+export const SEARCH_GROOMERS = 'SEARCH_GROOMERS';
