@@ -1,19 +1,23 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Layout, Row, Col, Divider, Button } from 'antd';
 import { Link } from 'react-router-dom';
 import { Navbar } from '../../common';
 import logo from './../../../images/logo_t.png';
+import { SearchForm } from '../Search';
 import './landing.scss';
 
 // EXAMPLE OF HOW TO IMPORT AND USE CONTEXT
 import ClientContext from '../../../state/client/clientContext';
-
 const { Footer, Content } = Layout;
 
 function RenderLandingPage(props) {
   // EXAMPLE OF HOW TO IMPORT AND USE CONTEXT
-  // const clientContext = useContext(ClientContext);
-  // const { client, groomers, getClient, searchGroomers } = clientContext;
+  const clientContext = useContext(ClientContext);
+  const { groomers, searchGroomers } = clientContext;
+
+  useEffect(() => {
+    searchGroomers();
+  }, []);
 
   return (
     <Layout>
@@ -25,9 +29,7 @@ function RenderLandingPage(props) {
             <img src={logo} alt="logo" />
           </div>
           <Link to="/">
-            <Button size="large" shape="round" className="search-btn">
-              Find the perfect groomer for your pet!
-            </Button>
+            <SearchForm searchGroomers={searchGroomers} />
           </Link>
         </div>
       </div>

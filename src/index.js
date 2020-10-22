@@ -15,6 +15,7 @@ import { HomePage } from './components/pages/Home';
 import { LoginPage } from './components/pages/Login';
 import { config } from './utils/oktaConfig';
 import { LoadingComponent } from './components/common';
+import { SearchResult } from './components/pages/SearchResult';
 
 import ClientState from './state/client/ClientState';
 
@@ -43,6 +44,7 @@ function App() {
       <ClientState>
         <Switch>
           <Route exact path="/" component={LandingPage} />
+          <Route path="/search-result-page" component={SearchResult} />
           <Route path="/login" component={LoginPage} />
           <Route path="/implicit/callback" component={LoginCallback} />
           <SecureRoute
