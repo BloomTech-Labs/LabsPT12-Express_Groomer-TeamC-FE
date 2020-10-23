@@ -1,27 +1,32 @@
-import React from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Layout, Menu } from 'antd';
-import { useOktaAuth } from '@okta/okta-react';
 import smallLogo from '../../images/small-logo.png';
+
+import ClientContext from '../../state/client/clientContext';
 
 const { Header } = Layout;
 
 function Navbar(props) {
-  const { authState, authService } = useOktaAuth();
+  const clientContext = useContext(ClientContext);
+  const { authState, authService, getClient, client } = clientContext;
+  const [clientId, setClientId] = useState();
 
   const history = useHistory();
 
-  const login = () => {
-    history.push('/login');
-  };
+  useEffect(() => {
+    if (authState.isAuthenticated) {
+      authService.getUser().then(res => {
+        setClientId(res.sub);
+      });
+    }
+  }, [authState]);
 
-  const logout = () => {
-    authService.logout();
-  };
-
-  const profile = () => {
-    history.push('/dash');
-  };
+  useEffect(() => {
+    if (clientId) {
+      getClient(clientId);
+    }
+  }, [clientId]);
 
   return (
     <Header
@@ -35,19 +40,29 @@ function Navbar(props) {
         <Menu.Item key="1" onClick={() => history.push('/')}>
           <img src={smallLogo} alt="small-logo" />
         </Menu.Item>
-        {!authState.isAuthenticated ? (
-          <Menu.Item key="2">Become a groomer</Menu.Item>
-        ) : null}
+        {Object.keys(client).length < 1 ? (
+          <Menu.Item key="2">Express Groomer</Menu.Item>
+        ) : (
+          <Menu.Item key="2">{`Welcome, ${client.name}`}</Menu.Item>
+        )}
       </Menu>
       {authState.isAuthenticated ? (
         <Menu mode="horizontal">
-          <Menu.Item key="3" onClick={() => authService.logout()}>
+          <Menu.Item key="3" onClick={() => history.push('/')}>
+            Home
+          </Menu.Item>
+          <Menu.Item key="4" onClick={() => history.push('/client-dash')}>
+            Dashboard
+          </Menu.Item>
+          <Menu.Item key="5" onClick={() => authService.logout()}>
             Log out
           </Menu.Item>
         </Menu>
       ) : (
         <Menu mode="horizontal">
-          <Menu.Item key="3">Sign up</Menu.Item>
+          <Menu.Item key="3" onClick={() => history.push('/')}>
+            Home
+          </Menu.Item>
           <Menu.Item key="4" onClick={() => history.push('/login')}>
             Log in
           </Menu.Item>
@@ -58,27 +73,3 @@ function Navbar(props) {
 }
 
 export default Navbar;
-
-{
-  /* <Header style={{ backgroundColor: "white", display: 'flex', justifyContent: 'space-between' }}>
-      <Menu mode="horizontal">
-        <Menu.Item key="1" onClick={() => history.push('/')}>
-          <img src={smallLogo} alt='sml-logo' />
-        </Menu.Item>
-        {authState.isAuthenticated ? (
-          <Menu.Item key="2" onClick={profile}>
-            My Dashboard
-          </Menu.Item>
-        ) : null}
-        {authState.isAuthenticated ? (
-          <Menu.Item key="3" onClick={logout}>
-            Log Out
-          </Menu.Item>
-        ) : (
-            <Menu.Item key="3" onClick={login}>
-              Log In
-            </Menu.Item>
-          )}
-      </Menu>
-    </Header> */
-}

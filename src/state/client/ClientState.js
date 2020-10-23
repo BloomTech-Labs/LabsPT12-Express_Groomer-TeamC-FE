@@ -4,6 +4,8 @@ import React, { useReducer } from 'react';
 import axios from 'axios';
 import ClientContext from './clientContext';
 import ClientReducer from './clientReducer';
+import { useOktaAuth } from '@okta/okta-react';
+import { apiAuth } from '../../api';
 
 import { GET_CLIENT, SEARCH_GROOMERS } from '../types';
 
@@ -15,9 +17,15 @@ const ClientState = props => {
 
   const [state, dispatch] = useReducer(ClientReducer, initialState);
 
+  // OKTA AUTH METHODS
+  const { authState, authService } = useOktaAuth();
+
   // GET CLIENT INFO
-  const getClient = async () => {
-    const res = await axios.get(`https://jsonplaceholder.typicode.com/users/1`);
+  const getClient = async id => {
+    const res = await apiAuth(authState).get(
+      `https://labspt12-express-groomer-c-api.herokuapp.com/profiles/${id}`
+    );
+    // await console.log(res);
 
     dispatch({
       type: GET_CLIENT,
@@ -42,6 +50,8 @@ const ClientState = props => {
         groomers: state.groomers,
         getClient,
         searchGroomers,
+        authState,
+        authService,
       }}
     >
       {props.children}
