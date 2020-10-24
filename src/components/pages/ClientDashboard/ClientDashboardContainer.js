@@ -5,8 +5,6 @@ import { Layout, Descriptions, Image } from 'antd';
 const ClientDashboardContainer = props => {
   const { name, country, email, avatarUrl } = props.client;
 
-  console.log(props.client);
-
   return (
     <Layout>
       <div

@@ -10,23 +10,24 @@ const { Header } = Layout;
 function Navbar(props) {
   const clientContext = useContext(ClientContext);
   const { authState, authService, getClient, client } = clientContext;
-  const [clientId, setClientId] = useState();
+  const [clientEmail, setClientEmail] = useState();
 
   const history = useHistory();
 
   useEffect(() => {
     if (authState.isAuthenticated) {
       authService.getUser().then(res => {
-        setClientId(res.sub);
+        setClientEmail(res.email);
       });
     }
   }, [authState]);
 
   useEffect(() => {
-    if (clientId) {
-      getClient(clientId);
+    if (clientEmail) {
+      const userEmail = { email: `${clientEmail}` };
+      getClient(userEmail);
     }
-  }, [clientId]);
+  }, [clientEmail]);
 
   return (
     <Header

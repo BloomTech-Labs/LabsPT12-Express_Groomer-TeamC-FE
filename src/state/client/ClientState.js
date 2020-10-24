@@ -21,9 +21,10 @@ const ClientState = props => {
   const { authState, authService } = useOktaAuth();
 
   // GET CLIENT INFO
-  const getClient = async id => {
-    const res = await apiAuth(authState).get(
-      `https://labspt12-express-groomer-c-api.herokuapp.com/profiles/${id}`
+  const getClient = async email => {
+    const res = await apiAuth(authState).post(
+      `https://labspt12-express-groomer-c-api.herokuapp.com/profiles/fetch-by-email`,
+      email
     );
     // await console.log(res);
 
