@@ -49,4 +49,13 @@ const getProfileData = authState => {
   }
 };
 
-export { sleep, getExampleData, getProfileData, getDSData };
+const apiAuth = authState => {
+  const { idToken } = authState;
+  return axios.create({
+    headers: {
+      Authorization: `Bearer ${idToken}`,
+    },
+  });
+};
+
+export { sleep, getExampleData, getProfileData, getDSData, apiAuth };

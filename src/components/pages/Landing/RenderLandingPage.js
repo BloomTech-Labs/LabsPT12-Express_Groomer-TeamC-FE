@@ -1,19 +1,18 @@
 import React, { useContext, useEffect } from 'react';
-import { Layout, Row, Col, Divider, Button } from 'antd';
+import { Layout, Row, Col } from 'antd';
 import { Link } from 'react-router-dom';
-import { Navbar } from '../../common';
 import logo from './../../../images/logo_t.png';
 import { SearchForm } from '../Search';
 import './landing.scss';
 
 // EXAMPLE OF HOW TO IMPORT AND USE CONTEXT
 import ClientContext from '../../../state/client/clientContext';
-const { Footer, Content } = Layout;
+const { Content } = Layout;
 
 function RenderLandingPage(props) {
   // EXAMPLE OF HOW TO IMPORT AND USE CONTEXT
   const clientContext = useContext(ClientContext);
-  const { groomers, searchGroomers } = clientContext;
+  const { searchGroomers } = clientContext;
 
   useEffect(() => {
     searchGroomers();
@@ -21,7 +20,6 @@ function RenderLandingPage(props) {
 
   return (
     <Layout>
-      <Navbar />
       <div className="banner-ctn">
         <div className="banner-content">
           <h1>Express Groomer</h1>
