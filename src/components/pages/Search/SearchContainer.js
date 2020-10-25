@@ -2,36 +2,36 @@ import ClientContext from '../../../state/client/clientContext';
 import React, { useState, useContext } from 'react';
 import { Button } from 'antd';
 import { useHistory } from 'react-router-dom';
-import RenderSearchPage from './RenderSearchPage';
+import RenderSearcPage from './RenderSearchPage';
 
 const SearchContainer = props => {
-  const [groomers, setGroomers] = useState({});
+  const [selectedGroomer, setSelectedGroomer] = useState(0);
   const clientContext = useContext(ClientContext);
 
   const history = useHistory();
 
   const handleChange = event => {
-    setGroomers(event.target.value);
+    setSelectedGroomer(event.target.value);
   };
 
   const handleSubmit = event => {
     event.preventDefault();
     props.searchGroomers();
-    history.push(`/search-result-page`);
+    history.push(`/search-result-page?groomerId=${selectedGroomer}`);
   };
 
   return (
-    <form className="" placeholder="select">
+    <form className="form" placeholder="select">
       <select
         className="form-select"
         style={{ color: 'black' }}
-        value={groomers}
+        value={selectedGroomer}
         onChange={handleChange}
       >
         <option value="">Select</option>
         {clientContext.groomers.map((groomer, index) => {
           return (
-            <option key={index} value={groomer.name}>
+            <option key={index} value={groomer.id}>
               {groomer.name}
             </option>
           );
