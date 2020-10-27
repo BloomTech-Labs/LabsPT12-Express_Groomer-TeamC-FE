@@ -46,9 +46,13 @@ function App() {
           <Navbar />
           <Switch>
             <Route exact path="/" component={LandingPage} />
-            <Route path="/search-result-page" component={SearchResult} />
             <Route path="/login" component={LoginPage} />
             <Route path="/implicit/callback" component={LoginCallback} />
+            <SecureRoute
+              path="/search-result-page/:city"
+              component={SearchResult}
+            />
+            <SecureRoute path="/groomer-profile/:id" component={null} />
             <SecureRoute exact path="/client-dash" component={ClientDash} />
           </Switch>
         </ClientState>
