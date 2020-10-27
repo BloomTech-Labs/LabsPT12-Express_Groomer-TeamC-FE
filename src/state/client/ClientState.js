@@ -7,12 +7,13 @@ import ClientReducer from './clientReducer';
 import { useOktaAuth } from '@okta/okta-react';
 import { apiAuth } from '../../api';
 
-import { GET_CLIENT, SEARCH_GROOMERS } from '../types';
+import { GET_CLIENT, SEARCH_GROOMERS, SET_ACCOUNT_TYPE } from '../types';
 
 const ClientState = props => {
   const initialState = {
     client: {},
-    groomers: [],
+    groomers: [], // *** NEED TO DELETE EVENTUALLY ***
+    account_type: '',
   };
 
   const [state, dispatch] = useReducer(ClientReducer, initialState);
@@ -34,7 +35,7 @@ const ClientState = props => {
     });
   };
 
-  // SEARCH GROOMERS
+  // SEARCH GROOMERS *** NEED TO DELETE EVENTUALLY ***
   const searchGroomers = async () => {
     const res = await axios.get(`https://jsonplaceholder.typicode.com/users`);
 
@@ -44,13 +45,29 @@ const ClientState = props => {
     });
   };
 
+  // SET ACCOUNT TYPE TO CLIENT OR GROOMER *** THIS WILL CHANGE ***
+  const setAccountType = () => {
+    const userCode = state.client.user_type;
+    const userKey = {
+      '035f3a60-0de0-11eb-93e6-ddb47fc994e4': 'client',
+      'dc885650-0de0-11eb-8250-a5697c93ae91': 'groomer',
+    };
+
+    dispatch({
+      type: SET_ACCOUNT_TYPE,
+      payload: userKey[userCode],
+    });
+  };
+
   return (
     <ClientContext.Provider
       value={{
         client: state.client,
-        groomers: state.groomers,
+        groomers: state.groomers, // *** NEED TO DELETE EVENTUALLY ***
+        accountType: state.account_type,
         getClient,
-        searchGroomers,
+        searchGroomers, // *** NEED TO DELETE EVENTUALLY ***
+        setAccountType,
         authState,
         authService,
       }}
