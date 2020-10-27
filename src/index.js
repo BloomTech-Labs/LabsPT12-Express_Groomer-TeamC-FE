@@ -17,6 +17,7 @@ import { config } from './utils/oktaConfig';
 import { SearchResult } from './components/pages/SearchResult';
 import { ClientDash } from './components/pages/ClientDashboard';
 import ClientState from './state/client/ClientState';
+import SearchState from './state/search/SearchState';
 
 ReactDOM.render(
   <Router>
@@ -40,16 +41,18 @@ function App() {
 
   return (
     <Security {...config} onAuthRequired={authHandler}>
-      <ClientState>
-        <Navbar />
-        <Switch>
-          <Route exact path="/" component={LandingPage} />
-          <Route path="/search-result-page" component={SearchResult} />
-          <Route path="/login" component={LoginPage} />
-          <Route path="/implicit/callback" component={LoginCallback} />
-          <SecureRoute exact path="/client-dash" component={ClientDash} />
-        </Switch>
-      </ClientState>
+      <SearchState>
+        <ClientState>
+          <Navbar />
+          <Switch>
+            <Route exact path="/" component={LandingPage} />
+            <Route path="/search-result-page" component={SearchResult} />
+            <Route path="/login" component={LoginPage} />
+            <Route path="/implicit/callback" component={LoginCallback} />
+            <SecureRoute exact path="/client-dash" component={ClientDash} />
+          </Switch>
+        </ClientState>
+      </SearchState>
     </Security>
   );
 }
