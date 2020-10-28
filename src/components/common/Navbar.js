@@ -9,13 +9,20 @@ const { Header } = Layout;
 
 function Navbar(props) {
   const clientContext = useContext(ClientContext);
-  const { authState, authService, getClient, client } = clientContext;
+  const {
+    authState,
+    authService,
+    getClient,
+    client,
+    setAccountType,
+  } = clientContext;
   const [clientEmail, setClientEmail] = useState();
 
   const history = useHistory();
 
   useEffect(() => {
     if (authState.isAuthenticated) {
+      console.log(authState.idToken);
       authService.getUser().then(res => {
         setClientEmail(res.email);
       });
@@ -29,12 +36,19 @@ function Navbar(props) {
     }
   }, [clientEmail]);
 
+  useEffect(() => {
+    if (Object.keys(client).length > 0) {
+      setAccountType();
+    }
+  }, [client]);
+
   return (
     <Header
       style={{
         backgroundColor: 'white',
         display: 'flex',
         justifyContent: 'space-between',
+        borderBottom: '1px solid #D3D3D3',
       }}
     >
       <Menu mode="horizontal">
