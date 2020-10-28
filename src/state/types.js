@@ -1,6 +1,5 @@
 // CLIENT
 export const GET_CLIENT = 'GET_CLIENT';
-export const SEARCH_GROOMERS = 'SEARCH_GROOMERS';
 export const SET_ACCOUNT_TYPE = 'SET_ACCOUNT_TYPE';
 
 // SEARCH

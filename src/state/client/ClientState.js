@@ -1,18 +1,16 @@
 // INITIALSTATE AND FUNCTIONS BELOW ARE EXAMPLES/TESTS AND WILL BE CHANGED AS THE APP PROGRESSES
 
 import React, { useReducer } from 'react';
-import axios from 'axios';
 import ClientContext from './clientContext';
 import ClientReducer from './clientReducer';
 import { useOktaAuth } from '@okta/okta-react';
 import { apiAuth } from '../../api';
 
-import { GET_CLIENT, SEARCH_GROOMERS, SET_ACCOUNT_TYPE } from '../types';
+import { GET_CLIENT, SET_ACCOUNT_TYPE } from '../types';
 
 const ClientState = props => {
   const initialState = {
     client: {},
-    groomers: [], // *** NEED TO DELETE EVENTUALLY ***
     account_type: '',
   };
 
@@ -27,7 +25,6 @@ const ClientState = props => {
       `https://labspt12-express-groomer-c-api.herokuapp.com/profiles/fetch-by-email`,
       email
     );
-    // await console.log(res);
 
     dispatch({
       type: GET_CLIENT,
@@ -35,17 +32,7 @@ const ClientState = props => {
     });
   };
 
-  // SEARCH GROOMERS *** NEED TO DELETE EVENTUALLY ***
-  const searchGroomers = async () => {
-    const res = await axios.get(`https://jsonplaceholder.typicode.com/users`);
-
-    dispatch({
-      type: SEARCH_GROOMERS,
-      payload: res.data,
-    });
-  };
-
-  // SET ACCOUNT TYPE TO CLIENT OR GROOMER *** THIS WILL CHANGE ***
+  // SET ACCOUNT TYPE TO CLIENT OR GROOMER
   const setAccountType = () => {
     const userCode = state.client.user_type;
     const userKey = {
@@ -63,10 +50,8 @@ const ClientState = props => {
     <ClientContext.Provider
       value={{
         client: state.client,
-        groomers: state.groomers, // *** NEED TO DELETE EVENTUALLY ***
         accountType: state.account_type,
         getClient,
-        searchGroomers, // *** NEED TO DELETE EVENTUALLY ***
         setAccountType,
         authState,
         authService,

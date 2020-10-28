@@ -1,42 +1,39 @@
-import React, { useState, useContext, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
-import ClientContext from '../../../state/client/clientContext';
-import { parseQuery } from './../../../utils/parse-query';
-import axios from 'axios';
+import React, { useContext, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import GroomerCard from './GroomerCard';
+import SearchContext from '../../../state/search/searchContext';
+import { Spinner } from '../../common/';
 
-function SearchResultContainer(props) {
-  const clientContext = useContext(ClientContext);
-  const [result, setResult] = useState([]);
-  const [users, setUsers] = useState([]);
-  const location = useLocation();
+const SearchResultContainer = () => {
+  const searchContext = useContext(SearchContext);
 
-  const getUsers = async filters => {
-    const users = (
-      await axios.get(`https://jsonplaceholder.typicode.com/users`)
-    ).data;
-    setUsers(users);
-    const res = users.filter(
-      groomer => groomer.id === parseInt(filters.groomerId)
-    );
-    setResult(res);
-  };
+  const { groomers, searchGroomersBy } = searchContext;
+
+  let params = useParams();
 
   useEffect(() => {
-    const filters = parseQuery(location.search);
-    getUsers(filters);
-  }, [location]);
+    searchGroomersBy(params.city);
+  }, []);
 
   return (
     <div>
-      <h1>View Groomer Profile</h1>
-      {result.map(user => (
-        <h3 key={user.id}>
-          {user.name}
-          <p>{user.city}</p>
-          <p>{user.phone}</p>
-        </h3>
-      ))}
+      {Object.keys(groomers) < 1 ? (
+        <Spinner />
+      ) : (
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-evenly',
+            flexWrap: 'wrap',
+            margin: '30px 50px',
+          }}
+        >
+          {groomers.map(item => {
+            return <GroomerCard key={item.id} groomer={item} />;
+          })}
+        </div>
+      )}
     </div>
   );
-}
+};
 export default SearchResultContainer;

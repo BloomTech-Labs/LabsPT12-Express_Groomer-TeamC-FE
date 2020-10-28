@@ -1,8 +1,7 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { Layout, Row, Col } from 'antd';
-import { Link } from 'react-router-dom';
+import { LoggedInOptions } from '../LoggedInOptions';
 import logo from './../../../images/logo_t.png';
-import { SearchForm } from '../Search';
 import './landing.scss';
 
 // EXAMPLE OF HOW TO IMPORT AND USE CONTEXT
@@ -12,11 +11,8 @@ const { Content } = Layout;
 function RenderLandingPage(props) {
   // EXAMPLE OF HOW TO IMPORT AND USE CONTEXT
   const clientContext = useContext(ClientContext);
-  const { searchGroomers } = clientContext;
 
-  useEffect(() => {
-    searchGroomers();
-  }, []);
+  const { authState } = clientContext;
 
   return (
     <Layout>
@@ -26,9 +22,7 @@ function RenderLandingPage(props) {
           <div className="img-ctn">
             <img src={logo} alt="logo" />
           </div>
-          <Link to="/">
-            <SearchForm searchGroomers={searchGroomers} />
-          </Link>
+          {authState.isAuthenticated ? <LoggedInOptions /> : null}
         </div>
       </div>
       <Content className="content-ctn">
