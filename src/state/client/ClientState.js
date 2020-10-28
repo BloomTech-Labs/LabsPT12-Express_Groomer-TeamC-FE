@@ -6,7 +6,7 @@ import ClientReducer from './clientReducer';
 import { useOktaAuth } from '@okta/okta-react';
 import { apiAuth } from '../../api';
 
-import { GET_CLIENT, SET_ACCOUNT_TYPE } from '../types';
+import { GET_CLIENT, SET_ACCOUNT_TYPE, UPDATE_PROFILE } from '../types';
 
 const ClientState = props => {
   const initialState = {
@@ -29,6 +29,19 @@ const ClientState = props => {
     dispatch({
       type: GET_CLIENT,
       payload: res.data,
+    });
+  };
+
+  // UPDATE CLIENT INFO
+  const updateProfile = async update => {
+    const res = await apiAuth(authState).put(
+      `https://labspt12-express-groomer-c-api.herokuapp.com/profiles`,
+      update
+    );
+    console.log(res.data);
+    dispatch({
+      type: UPDATE_PROFILE,
+      payload: res.data.profile,
     });
   };
 
@@ -55,6 +68,7 @@ const ClientState = props => {
         setAccountType,
         authState,
         authService,
+        updateProfile,
       }}
     >
       {props.children}

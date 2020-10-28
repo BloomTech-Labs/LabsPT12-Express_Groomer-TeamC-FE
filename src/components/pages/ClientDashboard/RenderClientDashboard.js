@@ -6,14 +6,14 @@ import { Spinner } from '../../common';
 
 const RenderClientDashboard = () => {
   const clientContext = useContext(ClientContext);
-  const { client } = clientContext;
+  const { client, accountType } = clientContext;
 
   return (
     <div>
       {Object.keys(client).length < 1 ? (
         <Spinner />
       ) : (
-        <ClientDashboardContainer client={client} />
+        <ClientDashboardContainer client={client} type={accountType} />
       )}
     </div>
   );

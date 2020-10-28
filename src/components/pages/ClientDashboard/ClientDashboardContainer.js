@@ -1,9 +1,14 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 
 import { Layout, Descriptions, Image } from 'antd';
 
 const ClientDashboardContainer = props => {
   const { name, country, email, avatarUrl } = props.client;
+
+  const history = useHistory();
+
+  console.log(props);
 
   return (
     <Layout>
@@ -25,6 +30,9 @@ const ClientDashboardContainer = props => {
           <Descriptions.Item label="Email">{email}</Descriptions.Item>
           <Descriptions.Item label="Country">{country}</Descriptions.Item>
         </Descriptions>
+        <button onClick={() => history.push('/update-profile')}>
+          Update your profile
+        </button>
       </div>
     </Layout>
   );
