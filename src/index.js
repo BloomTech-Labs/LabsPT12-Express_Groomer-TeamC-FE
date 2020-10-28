@@ -15,6 +15,7 @@ import { Navbar } from './components/common';
 import { LoginPage } from './components/pages/Login';
 import { config } from './utils/oktaConfig';
 import { SearchResult } from './components/pages/SearchResult';
+import { GroomerProfile } from './components/pages/GroomerProfileView';
 import { ClientDash } from './components/pages/ClientDashboard';
 import ClientState from './state/client/ClientState';
 import SearchState from './state/search/SearchState';
@@ -52,7 +53,10 @@ function App() {
               path="/search-result-page/:city"
               component={SearchResult}
             />
-            <SecureRoute path="/groomer-profile/:id" component={null} />
+            <SecureRoute
+              path="/groomer-profile/:id"
+              component={GroomerProfile}
+            />
             <SecureRoute exact path="/client-dash" component={ClientDash} />
           </Switch>
         </ClientState>
