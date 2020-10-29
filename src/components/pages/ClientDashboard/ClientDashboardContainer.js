@@ -1,40 +1,21 @@
-import React from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useContext } from 'react';
+import RenderClientDashboard from './RenderClientDashboard';
+import ClientContext from '../../../state/client/clientContext';
 
-import { Layout, Descriptions, Image } from 'antd';
+import { Spinner } from '../../common';
 
-const ClientDashboardContainer = props => {
-  const { name, country, email, avatarUrl } = props.client;
-
-  const history = useHistory();
-
-  console.log(props);
+const ClientDashboardContainer = () => {
+  const clientContext = useContext(ClientContext);
+  const { client, accountType } = clientContext;
 
   return (
-    <Layout>
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-        }}
-      >
-        <Image
-          width={200}
-          height={200}
-          src={avatarUrl}
-          fallback="avatar image"
-        />
-        <Descriptions title="Profile" layout="vertical" column={1}>
-          <Descriptions.Item label="Name">{name}</Descriptions.Item>
-          <Descriptions.Item label="Email">{email}</Descriptions.Item>
-          <Descriptions.Item label="Country">{country}</Descriptions.Item>
-        </Descriptions>
-        <button onClick={() => history.push('/update-profile')}>
-          Update your profile
-        </button>
-      </div>
-    </Layout>
+    <div>
+      {Object.keys(client).length < 1 ? (
+        <Spinner />
+      ) : (
+        <RenderClientDashboard client={client} type={accountType} />
+      )}
+    </div>
   );
 };
 

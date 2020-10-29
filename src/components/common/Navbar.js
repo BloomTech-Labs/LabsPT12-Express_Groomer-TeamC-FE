@@ -22,7 +22,6 @@ function Navbar(props) {
 
   useEffect(() => {
     if (authState.isAuthenticated) {
-      console.log(authState.idToken);
       authService.getUser().then(res => {
         setClientEmail(res.email);
       });

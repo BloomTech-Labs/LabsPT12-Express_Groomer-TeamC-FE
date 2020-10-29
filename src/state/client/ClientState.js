@@ -38,7 +38,7 @@ const ClientState = props => {
       `https://labspt12-express-groomer-c-api.herokuapp.com/profiles`,
       update
     );
-    console.log(res.data);
+
     dispatch({
       type: UPDATE_PROFILE,
       payload: res.data.profile,

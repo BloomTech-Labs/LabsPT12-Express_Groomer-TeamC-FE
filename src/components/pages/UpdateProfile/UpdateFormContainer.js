@@ -38,7 +38,6 @@ const UpdateFormContainer = props => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    console.log('submit', update);
     props.updateProfile(update);
     history.goBack();
   };

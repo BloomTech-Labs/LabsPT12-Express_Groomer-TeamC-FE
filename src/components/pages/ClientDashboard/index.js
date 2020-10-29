@@ -1,1 +1,1 @@
-export { default as ClientDash } from './RenderClientDashboard';
+export { default as ClientDash } from './ClientDashboardContainer.js';
