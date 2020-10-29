@@ -4,7 +4,6 @@ import { Button } from 'antd';
 
 const GroomerOptions = () => {
   let history = useHistory();
-  console.log(history);
 
   return (
     <div>

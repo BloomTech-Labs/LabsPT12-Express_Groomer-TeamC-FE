@@ -17,6 +17,7 @@ import { config } from './utils/oktaConfig';
 import { SearchResult } from './components/pages/SearchResult';
 import { GroomerProfile } from './components/pages/GroomerProfileView';
 import { ClientDash } from './components/pages/ClientDashboard';
+import { UpdateProfile } from './components/pages/UpdateProfile';
 import ClientState from './state/client/ClientState';
 import SearchState from './state/search/SearchState';
 
@@ -58,6 +59,11 @@ function App() {
               component={GroomerProfile}
             />
             <SecureRoute exact path="/client-dash" component={ClientDash} />
+            <SecureRoute
+              exact
+              path="/update-profile"
+              component={UpdateProfile}
+            />
           </Switch>
         </ClientState>
       </SearchState>
