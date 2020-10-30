@@ -21,10 +21,12 @@ function Navbar(props) {
   const history = useHistory();
 
   useEffect(() => {
-    if (authState.isAuthenticated) {
+    if (authState.isAuthenticated && authState.idToken) {
       authService.getUser().then(res => {
         setClientEmail(res.email);
       });
+    } else if (authState.isAuthenticated && !authState.idToken) {
+      authService.logout();
     }
   }, [authState]);
 
