@@ -2,7 +2,7 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import ClientOptions from '../LoggedInOptions/ClientOptions';
 
-import { Layout, Descriptions, Menu, Image, Avatar } from 'antd';
+import { Layout, Menu, Image, Avatar } from 'antd';
 const { Content, Sider } = Layout;
 const { SubMenu } = Menu;
 
