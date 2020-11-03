@@ -7,7 +7,7 @@ const { Content, Sider } = Layout;
 const { SubMenu } = Menu;
 
 const RenderClientDashboard = props => {
-  const { name, country, email, avatarUrl, created_at } = props.client;
+  const { name, country, email, avatarUrl, created_at } = props.user;
 
   const history = useHistory();
 

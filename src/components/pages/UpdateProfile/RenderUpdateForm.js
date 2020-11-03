@@ -1,16 +1,16 @@
 import React, { useContext } from 'react';
 import UpdateFormContainer from './UpdateFormContainer';
-import ClientContext from '../../../state/client/clientContext';
+import UserContext from '../../../state/user/userContext';
 
 const RenderUpdateForm = () => {
-  const clientContext = useContext(ClientContext);
+  const userContext = useContext(UserContext);
 
-  const { client, accountType, updateProfile } = clientContext;
+  const { userProfile, accountType, updateProfile } = userContext;
 
   return (
     <div>
       <UpdateFormContainer
-        client={client}
+        user={userProfile}
         type={accountType}
         updateProfile={updateProfile}
       />

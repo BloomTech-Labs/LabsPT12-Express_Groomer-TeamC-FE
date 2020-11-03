@@ -1,18 +1,18 @@
 // Example of how
 
-import { GET_CLIENT, SET_ACCOUNT_TYPE, UPDATE_PROFILE } from '../types';
+import { GET_USER_PROFILE, SET_ACCOUNT_TYPE, UPDATE_PROFILE } from '../types';
 
 export default (state, action) => {
   switch (action.type) {
-    case GET_CLIENT:
+    case GET_USER_PROFILE:
       return {
         ...state,
-        client: action.payload,
+        user_profile: action.payload,
       };
     case UPDATE_PROFILE:
       return {
         ...state,
-        client: action.payload,
+        user_profile: action.payload,
       };
     case SET_ACCOUNT_TYPE:
       return {

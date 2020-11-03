@@ -18,7 +18,7 @@ import { SearchResult } from './components/pages/SearchResult';
 import { GroomerProfile } from './components/pages/GroomerProfileView';
 import { Dashboard } from './components/pages/Dashboard';
 import { UpdateProfile } from './components/pages/UpdateProfile';
-import ClientState from './state/client/ClientState';
+import UserState from './state/user/UserState';
 import SearchState from './state/search/SearchState';
 
 ReactDOM.render(
@@ -44,7 +44,7 @@ function App() {
   return (
     <Security {...config} onAuthRequired={authHandler}>
       <SearchState>
-        <ClientState>
+        <UserState>
           <Navbar />
           <Switch>
             <Route exact path="/" component={LandingPage} />
@@ -65,7 +65,7 @@ function App() {
               component={UpdateProfile}
             />
           </Switch>
-        </ClientState>
+        </UserState>
       </SearchState>
     </Security>
   );

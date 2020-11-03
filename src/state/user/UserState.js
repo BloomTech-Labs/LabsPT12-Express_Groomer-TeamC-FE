@@ -1,17 +1,18 @@
 // INITIALSTATE AND FUNCTIONS BELOW ARE EXAMPLES/TESTS AND WILL BE CHANGED AS THE APP PROGRESSES
 
 import React, { useReducer } from 'react';
-import ClientContext from './clientContext';
-import ClientReducer from './clientReducer';
+import UserContext from './userContext';
+import ClientReducer from './userReducer';
 import { useOktaAuth } from '@okta/okta-react';
 import { apiAuth } from '../../api';
 
-import { GET_CLIENT, SET_ACCOUNT_TYPE, UPDATE_PROFILE } from '../types';
+import { GET_USER_PROFILE, SET_ACCOUNT_TYPE, UPDATE_PROFILE } from '../types';
 
-const ClientState = props => {
+const UserState = props => {
   const initialState = {
-    client: {},
+    user_profile: {},
     account_type: '',
+    groomer_profile: {},
   };
 
   const [state, dispatch] = useReducer(ClientReducer, initialState);
@@ -20,14 +21,15 @@ const ClientState = props => {
   const { authState, authService } = useOktaAuth();
 
   // GET CLIENT INFO
-  const getClient = async email => {
+  const getUserProfile = async email => {
     const res = await apiAuth(authState).post(
       `https://labspt12-express-groomer-c-api.herokuapp.com/profiles/fetch-by-email`,
       email
     );
+    await console.log(res.data);
 
     dispatch({
-      type: GET_CLIENT,
+      type: GET_USER_PROFILE,
       payload: res.data,
     });
   };
@@ -47,7 +49,7 @@ const ClientState = props => {
 
   // SET ACCOUNT TYPE TO CLIENT OR GROOMER
   const setAccountType = () => {
-    const userCode = state.client.user_type;
+    const userCode = state.user_profile.user_type;
     const userKey = {
       '035f3a60-0de0-11eb-93e6-ddb47fc994e4': 'client',
       'dc885650-0de0-11eb-8250-a5697c93ae91': 'groomer',
@@ -60,11 +62,12 @@ const ClientState = props => {
   };
 
   return (
-    <ClientContext.Provider
+    <UserContext.Provider
       value={{
-        client: state.client,
+        userProfile: state.user_profile,
+        groomerProfile: state.groomer_profile,
         accountType: state.account_type,
-        getClient,
+        getUserProfile,
         setAccountType,
         authState,
         authService,
@@ -72,8 +75,8 @@ const ClientState = props => {
       }}
     >
       {props.children}
-    </ClientContext.Provider>
+    </UserContext.Provider>
   );
 };
 
-export default ClientState;
+export default UserState;

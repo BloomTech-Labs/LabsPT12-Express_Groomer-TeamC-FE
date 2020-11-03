@@ -5,12 +5,14 @@ const { Content, Sider } = Layout;
 const { SubMenu } = Menu;
 
 const RenderGroomerDashboard = props => {
-  const { avatarUrl, created_at } = props.client;
+  const { avatarUrl, created_at } = props.user;
 
   const [date, setDate] = useState(new Date());
   const onChange = date => {
     setDate(date);
   };
+
+  const [view, setView] = useState(1);
 
   return (
     <div>
@@ -31,7 +33,11 @@ const RenderGroomerDashboard = props => {
         <Layout>
           <Sider width={300} style={{ background: '#FFFFFF' }}>
             <Menu mode="inline">
-              <SubMenu title={<spam>Profile and Settings</spam>}>
+              <SubMenu
+                title={
+                  <span onClick={() => setView(1)}>Profile and Settings</span>
+                }
+              >
                 <Menu.ItemGroup>
                   <Menu.Item key="contact_info">
                     Update your contact info
@@ -42,13 +48,15 @@ const RenderGroomerDashboard = props => {
                 </Menu.ItemGroup>
               </SubMenu>
 
-              <SubMenu title={<spam>Services</spam>}>
+              <SubMenu title={<span onClick={() => setView(2)}>Services</span>}>
                 <Menu.ItemGroup>
                   <Menu.Item key="manage_services">Manage Services</Menu.Item>
                 </Menu.ItemGroup>
               </SubMenu>
 
-              <SubMenu title={<spam>Appointments</spam>}>
+              <SubMenu
+                title={<span onClick={() => setView(3)}>Appointments</span>}
+              >
                 <Menu.ItemGroup>
                   <Menu.Item key="manage_appointments">
                     Manage Appointments
@@ -56,7 +64,7 @@ const RenderGroomerDashboard = props => {
                 </Menu.ItemGroup>
               </SubMenu>
 
-              <SubMenu title={<spam>Clients</spam>}>
+              <SubMenu title={<span onClick={() => setView(4)}>Clients</span>}>
                 <Menu.ItemGroup>
                   <Menu.Item key="manage_clients">Manage Clients</Menu.Item>
                 </Menu.ItemGroup>
@@ -66,6 +74,10 @@ const RenderGroomerDashboard = props => {
           <Layout>
             <Content style={{ background: '#BDECBE', padding: '20px 50px' }}>
               <div>
+                {view === 1 && <h1>Profile and Settings</h1>}
+                {view === 2 && <h1>Services</h1>}
+                {view === 3 && <h1>Appointments</h1>}
+                {view === 4 && <h1>Clients</h1>}
                 <form
                   style={{
                     display: 'flex',

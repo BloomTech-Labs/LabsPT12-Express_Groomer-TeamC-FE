@@ -3,27 +3,28 @@ import { useHistory } from 'react-router-dom';
 import { Layout, Menu } from 'antd';
 import smallLogo from '../../images/small-logo.png';
 
-import ClientContext from '../../state/client/clientContext';
+import UserContext from '../../state/user/userContext';
 
 const { Header } = Layout;
 
 function Navbar(props) {
-  const clientContext = useContext(ClientContext);
+  const userContext = useContext(UserContext);
   const {
     authState,
     authService,
-    getClient,
-    client,
+    getUserProfile,
+    userProfile,
     setAccountType,
-  } = clientContext;
-  const [clientEmail, setClientEmail] = useState();
+  } = userContext;
+  const [userEmail, setUserEmail] = useState();
 
   const history = useHistory();
 
   useEffect(() => {
     if (authState.isAuthenticated && authState.idToken) {
+      console.log(authState.idToken);
       authService.getUser().then(res => {
-        setClientEmail(res.email);
+        setUserEmail(res.email);
       });
     } else if (authState.isAuthenticated && !authState.idToken) {
       authService.logout();
@@ -31,17 +32,17 @@ function Navbar(props) {
   }, [authState]);
 
   useEffect(() => {
-    if (clientEmail) {
-      const userEmail = { email: `${clientEmail}` };
-      getClient(userEmail);
+    if (userEmail) {
+      const usersEmail = { email: `${userEmail}` };
+      getUserProfile(usersEmail);
     }
-  }, [clientEmail]);
+  }, [userEmail]);
 
   useEffect(() => {
-    if (Object.keys(client).length > 0) {
+    if (Object.keys(userProfile).length > 0) {
       setAccountType();
     }
-  }, [client]);
+  }, [userProfile]);
 
   return (
     <Header
@@ -56,10 +57,10 @@ function Navbar(props) {
         <Menu.Item key="1" onClick={() => history.push('/')}>
           <img src={smallLogo} alt="small-logo" />
         </Menu.Item>
-        {Object.keys(client).length < 1 ? (
+        {Object.keys(userProfile).length < 1 ? (
           <Menu.Item key="2">Express Groomer</Menu.Item>
         ) : (
-          <Menu.Item key="2">{`Welcome, ${client.name}`}</Menu.Item>
+          <Menu.Item key="2">{`Welcome, ${userProfile.name}`}</Menu.Item>
         )}
       </Menu>
       {authState.isAuthenticated ? (

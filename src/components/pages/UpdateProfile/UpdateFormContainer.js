@@ -17,8 +17,8 @@ const UpdateFormContainer = props => {
   const { name, address, city, state, zip_code, country, phone } = update;
 
   useEffect(() => {
-    if (Object.keys(props.client).length > 0) {
-      setUpdate(props.client);
+    if (Object.keys(props.user).length > 0) {
+      setUpdate(props.user);
     } else {
       setUpdate({
         name: '',
