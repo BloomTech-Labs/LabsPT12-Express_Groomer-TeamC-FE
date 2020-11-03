@@ -16,7 +16,7 @@ import { LoginPage } from './components/pages/Login';
 import { config } from './utils/oktaConfig';
 import { SearchResult } from './components/pages/SearchResult';
 import { GroomerProfile } from './components/pages/GroomerProfileView';
-import { ClientDash } from './components/pages/ClientDashboard';
+import { Dashboard } from './components/pages/Dashboard';
 import { UpdateProfile } from './components/pages/UpdateProfile';
 import ClientState from './state/client/ClientState';
 import SearchState from './state/search/SearchState';
@@ -58,7 +58,7 @@ function App() {
               path="/groomer-profile/:id"
               component={GroomerProfile}
             />
-            <SecureRoute exact path="/client-dash" component={ClientDash} />
+            <SecureRoute exact path="/client-dash" component={Dashboard} />
             <SecureRoute
               exact
               path="/update-profile"
