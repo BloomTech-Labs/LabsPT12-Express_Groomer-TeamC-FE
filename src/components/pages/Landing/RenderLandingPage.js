@@ -5,14 +5,14 @@ import logo from './../../../images/logo_t.png';
 import './landing.scss';
 
 // EXAMPLE OF HOW TO IMPORT AND USE CONTEXT
-import ClientContext from '../../../state/client/clientContext';
+import UserContext from '../../../state/user/userContext';
 const { Content } = Layout;
 
 function RenderLandingPage(props) {
   // EXAMPLE OF HOW TO IMPORT AND USE CONTEXT
-  const clientContext = useContext(ClientContext);
+  const userContext = useContext(UserContext);
 
-  const { authState } = clientContext;
+  const { authState } = userContext;
 
   return (
     <Layout>
