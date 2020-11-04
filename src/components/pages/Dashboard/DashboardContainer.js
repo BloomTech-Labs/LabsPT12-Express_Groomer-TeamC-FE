@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import RenderClientDashboard from './RenderClientDashboard';
 import RenderGroomerDashboard from './RenderGroomerDashboard';
 import UserContext from '../../../state/user/userContext';
@@ -7,7 +7,18 @@ import { Spinner } from '../../common';
 
 const DashboardContainer = () => {
   const userContext = useContext(UserContext);
-  const { userProfile, accountType, authState } = userContext;
+  const {
+    userProfile,
+    accountType,
+    authState,
+    fetchGroomerProfile,
+  } = userContext;
+
+  useEffect(() => {
+    if (accountType === 'groomer') {
+      fetchGroomerProfile(userProfile.id);
+    }
+  }, [accountType]);
 
   return (
     <div>

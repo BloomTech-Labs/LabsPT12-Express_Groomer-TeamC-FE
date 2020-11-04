@@ -6,7 +6,12 @@ import ClientReducer from './userReducer';
 import { useOktaAuth } from '@okta/okta-react';
 import { apiAuth } from '../../api';
 
-import { GET_USER_PROFILE, SET_ACCOUNT_TYPE, UPDATE_PROFILE } from '../types';
+import {
+  GET_GROOMER_PROFILE,
+  GET_USER_PROFILE,
+  SET_ACCOUNT_TYPE,
+  UPDATE_PROFILE,
+} from '../types';
 
 const UserState = props => {
   const initialState = {
@@ -20,13 +25,12 @@ const UserState = props => {
   // OKTA AUTH METHODS
   const { authState, authService } = useOktaAuth();
 
-  // GET CLIENT INFO
+  // GET USER PROFILE INFO
   const getUserProfile = async email => {
     const res = await apiAuth(authState).post(
       `https://labspt12-express-groomer-c-api.herokuapp.com/profiles/fetch-by-email`,
       email
     );
-    await console.log(res.data);
 
     dispatch({
       type: GET_USER_PROFILE,
@@ -34,7 +38,7 @@ const UserState = props => {
     });
   };
 
-  // UPDATE CLIENT INFO
+  // UPDATE USER PROFILE INFO
   const updateProfile = async update => {
     const res = await apiAuth(authState).put(
       `https://labspt12-express-groomer-c-api.herokuapp.com/profiles`,
@@ -61,6 +65,18 @@ const UserState = props => {
     });
   };
 
+  // GET GROOMER INFORMATION (IF USER IS A GROOMER)
+  const fetchGroomerProfile = async profile_id => {
+    const res = await apiAuth(authState).get(
+      `https://labspt12-express-groomer-c-api.herokuapp.com/groomers/${profile_id}`
+    );
+
+    dispatch({
+      type: GET_GROOMER_PROFILE,
+      payload: res.data,
+    });
+  };
+
   return (
     <UserContext.Provider
       value={{
@@ -68,6 +84,7 @@ const UserState = props => {
         groomerProfile: state.groomer_profile,
         accountType: state.account_type,
         getUserProfile,
+        fetchGroomerProfile,
         setAccountType,
         authState,
         authService,

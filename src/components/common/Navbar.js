@@ -22,7 +22,6 @@ function Navbar(props) {
 
   useEffect(() => {
     if (authState.isAuthenticated && authState.idToken) {
-      console.log(authState.idToken);
       authService.getUser().then(res => {
         setUserEmail(res.email);
       });
@@ -68,7 +67,7 @@ function Navbar(props) {
           <Menu.Item key="3" onClick={() => history.push('/')}>
             Home
           </Menu.Item>
-          <Menu.Item key="4" onClick={() => history.push('/client-dash')}>
+          <Menu.Item key="4" onClick={() => history.push('/user-dash')}>
             Dashboard
           </Menu.Item>
           <Menu.Item key="5" onClick={() => authService.logout()}>

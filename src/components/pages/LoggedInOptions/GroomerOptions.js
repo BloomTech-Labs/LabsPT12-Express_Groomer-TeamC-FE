@@ -7,7 +7,7 @@ const GroomerOptions = () => {
 
   return (
     <div>
-      <Button onClick={() => history.push('/client-dash')}>
+      <Button onClick={() => history.push('/user-dash')}>
         Manage your groomer account
       </Button>
     </div>

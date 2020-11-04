@@ -1,6 +1,11 @@
 // Example of how
 
-import { GET_USER_PROFILE, SET_ACCOUNT_TYPE, UPDATE_PROFILE } from '../types';
+import {
+  GET_USER_PROFILE,
+  SET_ACCOUNT_TYPE,
+  UPDATE_PROFILE,
+  GET_GROOMER_PROFILE,
+} from '../types';
 
 export default (state, action) => {
   switch (action.type) {
@@ -18,6 +23,11 @@ export default (state, action) => {
       return {
         ...state,
         account_type: action.payload,
+      };
+    case GET_GROOMER_PROFILE:
+      return {
+        ...state,
+        groomer_profile: action.payload,
       };
     default:
       return state;
