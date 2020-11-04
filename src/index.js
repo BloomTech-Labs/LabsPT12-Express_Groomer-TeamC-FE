@@ -58,7 +58,7 @@ function App() {
               path="/groomer-profile/:id"
               component={GroomerProfile}
             />
-            <SecureRoute exact path="/client-dash" component={Dashboard} />
+            <SecureRoute exact path="/user-dash" component={Dashboard} />
             <SecureRoute
               exact
               path="/update-profile"

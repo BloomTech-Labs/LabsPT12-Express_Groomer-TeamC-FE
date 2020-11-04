@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
-import Calendar from 'react-calendar';
-import { Button, Layout, Menu, Image, Avatar } from 'antd';
+import { Layout, Menu, Image, Avatar } from 'antd';
+import {
+  UserProfile,
+  GroomerServices,
+  Appointments,
+} from './dashboardComponents';
+
 const { Content, Sider } = Layout;
 const { SubMenu } = Menu;
 
 const RenderGroomerDashboard = props => {
   const { avatarUrl, created_at } = props.user;
-
-  const [date, setDate] = useState(new Date());
-  const onChange = date => {
-    setDate(date);
-  };
 
   const [view, setView] = useState(1);
 
@@ -31,7 +31,7 @@ const RenderGroomerDashboard = props => {
           <h3>Member since: {created_at.slice(0, 10)}</h3>
         </Content>
         <Layout>
-          <Sider width={300} style={{ background: '#FFFFFF' }}>
+          <Sider width={300} style={{ background: '#EFF2F6' }}>
             <Menu mode="inline">
               <SubMenu
                 title={
@@ -72,11 +72,11 @@ const RenderGroomerDashboard = props => {
             </Menu>
           </Sider>
           <Layout>
-            <Content style={{ background: '#BDECBE', padding: '20px 50px' }}>
+            <Content style={{ background: '#FFFFFF', padding: '20px 50px' }}>
               <div>
-                {view === 1 && <h1>Profile and Settings</h1>}
-                {view === 2 && <h1>Services</h1>}
-                {view === 3 && <h1>Appointments</h1>}
+                {view === 1 && <UserProfile />}
+                {view === 2 && <GroomerServices />}
+                {view === 3 && <Appointments />}
                 {view === 4 && <h1>Clients</h1>}
                 <form
                   style={{
@@ -84,17 +84,10 @@ const RenderGroomerDashboard = props => {
                     flexDirection: 'row',
                     justifyContent: 'space-evenly',
                   }}
-                >
-                  <h3>Placeholder for client reviews</h3>
-                  <h3>Placeholder for pictures</h3>
-                </form>
+                ></form>
               </div>
             </Content>
           </Layout>
-          <Content style={{ textAlign: 'center', maxWidth: 300 }}>
-            <Calendar />
-            <Button>manage appointments</Button>
-          </Content>
         </Layout>
       </Layout>
     </div>
