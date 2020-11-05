@@ -6,7 +6,7 @@ const GroomerServiceCard = ({ services }) => {
     <Card>
       {services.map(service => {
         return (
-          <Card type="inner" title={service.name}>
+          <Card key={service.id} type="inner" title={service.name}>
             <p>Description: {service.description}</p>
             <p>Service hours: {service.service_hours}</p>
             <p>Price: {service.cost}</p>

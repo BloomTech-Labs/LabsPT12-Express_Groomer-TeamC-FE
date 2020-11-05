@@ -1,11 +1,14 @@
 import React, { useContext } from 'react';
 import UserContext from '../../../../state/user/userContext';
+import { useHistory } from 'react-router-dom';
 
-import { List } from 'antd';
+import { Button, List } from 'antd';
 
 const UserProfile = () => {
   const userContext = useContext(UserContext);
   const { userProfile } = userContext;
+
+  const history = useHistory();
 
   const { name, email, address, city, state, zipcode, country } = userProfile;
 
@@ -55,6 +58,9 @@ const UserProfile = () => {
           </List.Item>
         )}
       />
+      <Button type="primary" onClick={() => history.push(`/update-profile`)}>
+        Update profile
+      </Button>
     </div>
   );
 };
