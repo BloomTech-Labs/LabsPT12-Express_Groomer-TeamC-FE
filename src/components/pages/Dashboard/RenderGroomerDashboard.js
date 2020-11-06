@@ -1,13 +1,17 @@
 import React, { useState } from 'react';
 import { Layout, Menu, Image, Avatar } from 'antd';
 import {
+  ScheduleOutlined,
+  IdcardOutlined,
+  SolutionOutlined,
+} from '@ant-design/icons';
+import {
   UserProfile,
   GroomerServices,
   Appointments,
 } from './dashboardComponents';
 
 const { Content, Sider } = Layout;
-const { SubMenu } = Menu;
 
 const RenderGroomerDashboard = props => {
   const { avatarUrl, created_at } = props.user;
@@ -33,42 +37,27 @@ const RenderGroomerDashboard = props => {
         <Layout>
           <Sider width={300} style={{ background: '#EFF2F6' }}>
             <Menu mode="inline">
-              <SubMenu
-                title={
-                  <span onClick={() => setView(1)}>Profile and Settings</span>
-                }
+              <Menu.Item
+                key="1"
+                icon={<IdcardOutlined />}
+                onClick={() => setView(1)}
               >
-                <Menu.ItemGroup>
-                  <Menu.Item key="contact_info">
-                    Update your contact info
-                  </Menu.Item>
-                  <Menu.Item key="additional_settings">
-                    Additional Settings
-                  </Menu.Item>
-                </Menu.ItemGroup>
-              </SubMenu>
-
-              <SubMenu title={<span onClick={() => setView(2)}>Services</span>}>
-                <Menu.ItemGroup>
-                  <Menu.Item key="manage_services">Manage Services</Menu.Item>
-                </Menu.ItemGroup>
-              </SubMenu>
-
-              <SubMenu
-                title={<span onClick={() => setView(3)}>Appointments</span>}
+                Profile
+              </Menu.Item>
+              <Menu.Item
+                key="2"
+                icon={<SolutionOutlined />}
+                onClick={() => setView(2)}
               >
-                <Menu.ItemGroup>
-                  <Menu.Item key="manage_appointments">
-                    Manage Appointments
-                  </Menu.Item>
-                </Menu.ItemGroup>
-              </SubMenu>
-
-              <SubMenu title={<span onClick={() => setView(4)}>Clients</span>}>
-                <Menu.ItemGroup>
-                  <Menu.Item key="manage_clients">Manage Clients</Menu.Item>
-                </Menu.ItemGroup>
-              </SubMenu>
+                Your Services
+              </Menu.Item>
+              <Menu.Item
+                key="3"
+                icon={<ScheduleOutlined />}
+                onClick={() => setView(3)}
+              >
+                Your Appointments
+              </Menu.Item>
             </Menu>
           </Sider>
           <Layout>

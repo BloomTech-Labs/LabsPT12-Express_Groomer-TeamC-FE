@@ -7,10 +7,11 @@ import { useOktaAuth } from '@okta/okta-react';
 import { apiAuth } from '../../api';
 
 import {
-  GET_GROOMER_PROFILE,
+  FETCH_GROOMER_PROFILE,
   GET_USER_PROFILE,
   SET_ACCOUNT_TYPE,
   UPDATE_PROFILE,
+  GET_CLIENT_PROFILE,
 } from '../types';
 
 const UserState = props => {
@@ -18,6 +19,7 @@ const UserState = props => {
     user_profile: {},
     account_type: '',
     groomer_profile: {},
+    client_profile: {},
   };
 
   const [state, dispatch] = useReducer(ClientReducer, initialState);
@@ -72,7 +74,18 @@ const UserState = props => {
     );
 
     dispatch({
-      type: GET_GROOMER_PROFILE,
+      type: FETCH_GROOMER_PROFILE,
+      payload: res.data,
+    });
+  };
+
+  // GET CLIENT PROFILE
+  const fetchClientProfile = async profile_id => {
+    const res = await apiAuth(authState).get(
+      `https://labspt12-express-groomer-c-api.herokuapp.com/clients/${profile_id}`
+    );
+    dispatch({
+      type: GET_CLIENT_PROFILE,
       payload: res.data,
     });
   };
@@ -82,9 +95,11 @@ const UserState = props => {
       value={{
         userProfile: state.user_profile,
         groomerProfile: state.groomer_profile,
+        clientProfile: state.client_profile,
         accountType: state.account_type,
         getUserProfile,
         fetchGroomerProfile,
+        fetchClientProfile,
         setAccountType,
         authState,
         authService,

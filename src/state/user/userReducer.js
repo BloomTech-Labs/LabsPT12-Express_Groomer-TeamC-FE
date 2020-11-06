@@ -4,7 +4,8 @@ import {
   GET_USER_PROFILE,
   SET_ACCOUNT_TYPE,
   UPDATE_PROFILE,
-  GET_GROOMER_PROFILE,
+  FETCH_GROOMER_PROFILE,
+  GET_CLIENT_PROFILE,
 } from '../types';
 
 export default (state, action) => {
@@ -24,10 +25,15 @@ export default (state, action) => {
         ...state,
         account_type: action.payload,
       };
-    case GET_GROOMER_PROFILE:
+    case FETCH_GROOMER_PROFILE:
       return {
         ...state,
         groomer_profile: action.payload,
+      };
+    case GET_CLIENT_PROFILE:
+      return {
+        ...state,
+        client_profile: action.payload,
       };
     default:
       return state;

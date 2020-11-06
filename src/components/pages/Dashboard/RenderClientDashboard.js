@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ClientOptions from '../LoggedInOptions/ClientOptions';
 
 import { Layout, Menu, Image, Avatar } from 'antd';
+import { HeartOutlined, IdcardOutlined } from '@ant-design/icons';
+import { UserProfile, ClientPets } from './dashboardComponents';
 const { Content, Sider } = Layout;
-const { SubMenu } = Menu;
 
 const RenderClientDashboard = props => {
   const { avatarUrl, created_at } = props.user;
+
+  const [view, setView] = useState(1);
 
   return (
     <div>
@@ -30,42 +33,34 @@ const RenderClientDashboard = props => {
         <Layout>
           <Sider width={300} style={{ background: '#FFFFFF' }}>
             <Menu mode="inline">
-              <SubMenu title={<spam>Profile and Settings</spam>}>
-                <Menu.ItemGroup>
-                  <Menu.Item key="contact_info">
-                    Update your contact info
-                  </Menu.Item>
-                </Menu.ItemGroup>
-              </SubMenu>
-
-              <SubMenu title={<spam>Pets</spam>}>
-                <Menu.ItemGroup>
-                  <Menu.Item key="manage_pet">Manage Pets</Menu.Item>
-                </Menu.ItemGroup>
-              </SubMenu>
-
-              <SubMenu title={<spam>Groomers</spam>}>
-                <Menu.ItemGroup>
-                  <Menu.Item key="manage_appointment">
-                    Manage Groomers
-                  </Menu.Item>
-                </Menu.ItemGroup>
-              </SubMenu>
+              <Menu.Item
+                key="1"
+                icon={<IdcardOutlined />}
+                onClick={() => setView(1)}
+              >
+                Profile
+              </Menu.Item>
+              <Menu.Item
+                key="2"
+                icon={<HeartOutlined />}
+                onClick={() => setView(2)}
+              >
+                Your Pets
+              </Menu.Item>
             </Menu>
           </Sider>
           <Layout>
-            <Content style={{ background: '#BDECBE', padding: '20px 50px' }}>
+            <Content style={{ background: '#FFFFFF', padding: '20px 50px' }}>
               <div>
+                {view === 1 && <UserProfile />}
+                {view === 2 && <ClientPets />}
                 <form
                   style={{
                     display: 'flex',
                     flexDirection: 'row',
                     justifyContent: 'space-evenly',
                   }}
-                >
-                  <h3>Placeholder for pet pictures</h3>
-                  <h3>Placeholder for pet pictures</h3>
-                </form>
+                ></form>
               </div>
             </Content>
           </Layout>
