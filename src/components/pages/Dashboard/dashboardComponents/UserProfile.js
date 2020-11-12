@@ -1,14 +1,14 @@
 import React, { useContext } from 'react';
 import UserContext from '../../../../state/user/userContext';
-import { useHistory } from 'react-router-dom';
+import DashboardContext from '../../../../state/dashboard/dashboardContext';
 
 import { Button, List, Card } from 'antd';
 
 const UserProfile = () => {
   const userContext = useContext(UserContext);
+  const dashboardContext = useContext(DashboardContext);
   const { userProfile } = userContext;
-
-  const history = useHistory();
+  const { changeView } = dashboardContext;
 
   const { name, email, address, city, state, zipcode, country } = userProfile;
 
@@ -46,7 +46,7 @@ const UserProfile = () => {
   return (
     <div>
       <h1>Your profile</h1>
-      <Button type="primary" onClick={() => history.push(`/update-profile`)}>
+      <Button type="primary" onClick={() => changeView(5)}>
         Update profile
       </Button>
       <Card>

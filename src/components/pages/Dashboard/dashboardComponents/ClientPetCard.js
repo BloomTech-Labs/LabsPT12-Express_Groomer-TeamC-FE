@@ -15,8 +15,8 @@ const ClientPetCard = ({ animals }) => {
     changeView(3);
   };
 
-  const handleDeleteClick = animailId => {
-    deletePet(animailId, clientProfile.id);
+  const handleDeleteClick = animalId => {
+    deletePet(animalId, clientProfile.id);
     changeView(2);
   };
 
@@ -28,6 +28,7 @@ const ClientPetCard = ({ animals }) => {
             <p>Type: {animal.animal_type}</p>
             <p>Breed: {animal.breed}</p>
             <p>Weight: {animal.weight} lbs.</p>
+            <p>Comments: {animal.comment}</p>
             <div>
               <Button onClick={() => handleUpdateClick(animal)}>Update</Button>
               <Popconfirm
