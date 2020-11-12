@@ -15,8 +15,8 @@ const ClientPetCard = ({ animals }) => {
     changeView(3);
   };
 
-  const handleDeleteClick = animailId => {
-    deletePet(animailId, clientProfile.id);
+  const handleDeleteClick = animalId => {
+    deletePet(animalId, clientProfile.id);
     changeView(2);
   };
 
