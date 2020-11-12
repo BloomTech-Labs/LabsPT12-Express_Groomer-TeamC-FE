@@ -21,6 +21,7 @@ import { UpdateProfile } from './components/pages/UpdateProfile';
 import { AddClientPet } from './components/pages/AddClientPet';
 import UserState from './state/user/UserState';
 import SearchState from './state/search/SearchState';
+import DashboardState from './state/dashboard/DashboardState';
 
 ReactDOM.render(
   <Router>
@@ -45,29 +46,31 @@ function App() {
   return (
     <Security {...config} onAuthRequired={authHandler}>
       <SearchState>
-        <UserState>
-          <Navbar />
-          <Switch>
-            <Route exact path="/" component={LandingPage} />
-            <Route path="/login" component={LoginPage} />
-            <Route path="/implicit/callback" component={LoginCallback} />
-            <SecureRoute
-              path="/search-result-page/:city"
-              component={SearchResult}
-            />
-            <SecureRoute
-              path="/groomer-profile/:id"
-              component={GroomerProfile}
-            />
-            <SecureRoute exact path="/user-dash" component={Dashboard} />
-            <SecureRoute
-              exact
-              path="/update-profile"
-              component={UpdateProfile}
-            />
-            <SecureRoute exact path="/add-pet" component={AddClientPet} />
-          </Switch>
-        </UserState>
+        <DashboardState>
+          <UserState>
+            <Navbar />
+            <Switch>
+              <Route exact path="/" component={LandingPage} />
+              <Route path="/login" component={LoginPage} />
+              <Route path="/implicit/callback" component={LoginCallback} />
+              <SecureRoute
+                path="/search-result-page/:city"
+                component={SearchResult}
+              />
+              <SecureRoute
+                path="/groomer-profile/:id"
+                component={GroomerProfile}
+              />
+              <SecureRoute exact path="/user-dash" component={Dashboard} />
+              <SecureRoute
+                exact
+                path="/update-profile"
+                component={UpdateProfile}
+              />
+              <SecureRoute exact path="/add-pet" component={AddClientPet} />
+            </Switch>
+          </UserState>
+        </DashboardState>
       </SearchState>
     </Security>
   );
