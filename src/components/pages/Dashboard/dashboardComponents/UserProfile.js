@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import UserContext from '../../../../state/user/userContext';
 import { useHistory } from 'react-router-dom';
 
-import { Button, List } from 'antd';
+import { Button, List, Card } from 'antd';
 
 const UserProfile = () => {
   const userContext = useContext(UserContext);
@@ -49,18 +49,20 @@ const UserProfile = () => {
       <Button type="primary" onClick={() => history.push(`/update-profile`)}>
         Update profile
       </Button>
-      <List
-        itemLayout="horizontal"
-        dataSource={data}
-        renderItem={item => (
-          <List.Item>
-            <List.Item.Meta
-              title={<p>{item.title}</p>}
-              description={<p>{item.description}</p>}
-            />
-          </List.Item>
-        )}
-      />
+      <Card>
+        <List
+          itemLayout="horizontal"
+          dataSource={data}
+          renderItem={item => (
+            <List.Item>
+              <List.Item.Meta
+                title={<p>{item.title}</p>}
+                description={<p>{item.description}</p>}
+              />
+            </List.Item>
+          )}
+        />
+      </Card>
     </div>
   );
 };

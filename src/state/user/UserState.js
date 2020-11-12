@@ -73,8 +73,6 @@ const UserState = props => {
       `https://labspt12-express-groomer-c-api.herokuapp.com/groomers/${profile_id}`
     );
 
-    await console.log('groomer profile', res.data);
-
     dispatch({
       type: FETCH_GROOMER_PROFILE,
       payload: res.data,
@@ -94,11 +92,29 @@ const UserState = props => {
   };
 
   // CLIENT: ADD NEW PET
-  const addClientPet = async newPet => {
+  const addClientPet = async (newPet, id) => {
     await apiAuth(authState).post(
       `https://labspt12-express-groomer-c-api.herokuapp.com/animals`,
       newPet
     );
+    await fetchClientProfile(id);
+  };
+
+  // CLIENT: UPDATE PET
+  const updatePet = async (updatedPet, id) => {
+    await apiAuth(authState).put(
+      `https://labspt12-express-groomer-c-api.herokuapp.com/animals`,
+      updatedPet
+    );
+    await fetchClientProfile(id);
+  };
+
+  // CLIENT: DELETE PET
+  const deletePet = async (petId, id) => {
+    await apiAuth(authState).delete(
+      `https://labspt12-express-groomer-c-api.herokuapp.com/animals/${petId}`
+    );
+    await fetchClientProfile(id);
   };
 
   return (
@@ -113,6 +129,8 @@ const UserState = props => {
         fetchClientProfile,
         setAccountType,
         addClientPet,
+        updatePet,
+        deletePet,
         authState,
         authService,
         updateProfile,
