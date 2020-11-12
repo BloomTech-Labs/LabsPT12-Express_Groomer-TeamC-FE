@@ -8,6 +8,7 @@ import {
   ClientPets,
   PetUpdateForm,
   AddPetForm,
+  ProfileUpdateForm,
 } from './dashboardComponents';
 const { Content, Sider } = Layout;
 
@@ -62,6 +63,7 @@ const RenderClientDashboard = props => {
                 {dashView === 2 && <ClientPets />}
                 {dashView === 3 && <PetUpdateForm />}
                 {dashView === 4 && <AddPetForm />}
+                {dashView === 5 && <ProfileUpdateForm />}
                 <form
                   style={{
                     display: 'flex',
