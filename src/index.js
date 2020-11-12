@@ -18,6 +18,7 @@ import { SearchResult } from './components/pages/SearchResult';
 import { GroomerProfile } from './components/pages/GroomerProfileView';
 import { Dashboard } from './components/pages/Dashboard';
 import { UpdateProfile } from './components/pages/UpdateProfile';
+import { AddClientPet } from './components/pages/AddClientPet';
 import UserState from './state/user/UserState';
 import SearchState from './state/search/SearchState';
 
@@ -64,6 +65,7 @@ function App() {
               path="/update-profile"
               component={UpdateProfile}
             />
+            <SecureRoute exact path="/add-pet" component={AddClientPet} />
           </Switch>
         </UserState>
       </SearchState>

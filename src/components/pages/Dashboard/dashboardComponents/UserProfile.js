@@ -46,6 +46,9 @@ const UserProfile = () => {
   return (
     <div>
       <h1>Your profile</h1>
+      <Button type="primary" onClick={() => history.push(`/update-profile`)}>
+        Update profile
+      </Button>
       <List
         itemLayout="horizontal"
         dataSource={data}
@@ -58,9 +61,6 @@ const UserProfile = () => {
           </List.Item>
         )}
       />
-      <Button type="primary" onClick={() => history.push(`/update-profile`)}>
-        Update profile
-      </Button>
     </div>
   );
 };
