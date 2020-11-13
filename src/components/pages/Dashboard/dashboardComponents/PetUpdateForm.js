@@ -39,7 +39,6 @@ const PetUpdateForm = () => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    console.log(petUpdate);
     updatePet(petUpdate, owner_id);
     changeView(2);
   };

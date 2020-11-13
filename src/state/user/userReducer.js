@@ -6,6 +6,7 @@ import {
   UPDATE_PROFILE,
   FETCH_GROOMER_PROFILE,
   GET_CLIENT_PROFILE,
+  GET_GROOMER_SERVICES,
 } from '../types';
 
 export default (state, action) => {
@@ -34,6 +35,11 @@ export default (state, action) => {
       return {
         ...state,
         client_profile: action.payload,
+      };
+    case GET_GROOMER_SERVICES:
+      return {
+        ...state,
+        groomer_services: action.payload,
       };
     default:
       return state;

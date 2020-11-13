@@ -5,6 +5,8 @@ import ClientPets from './ClientPetsContainer';
 import PetUpdateForm from './PetUpdateForm';
 import AddPetForm from './AddPetForm';
 import ProfileUpdateForm from './ProfileUpdateForm';
+import AddGroomerServiceForm from './AddGroomerServiceForm';
+import ServiceUpdateForm from './ServiceUpdateForm';
 
 export {
   UserProfile,
@@ -14,4 +16,6 @@ export {
   PetUpdateForm,
   AddPetForm,
   ProfileUpdateForm,
+  AddGroomerServiceForm,
+  ServiceUpdateForm,
 };
