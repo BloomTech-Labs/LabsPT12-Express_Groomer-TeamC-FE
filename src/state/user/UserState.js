@@ -12,6 +12,7 @@ import {
   SET_ACCOUNT_TYPE,
   UPDATE_PROFILE,
   GET_CLIENT_PROFILE,
+  GET_GROOMER_SERVICES,
 } from '../types';
 
 const UserState = props => {
@@ -20,6 +21,7 @@ const UserState = props => {
     account_type: '',
     groomer_profile: {},
     client_profile: {},
+    groomer_services: [],
   };
 
   const [state, dispatch] = useReducer(ClientReducer, initialState);
@@ -79,6 +81,44 @@ const UserState = props => {
     });
   };
 
+  // GET ALL EXISTING GROOMER SERVICES
+  const getGroomerServices = async () => {
+    const res = await apiAuth(authState).get(
+      `https://labspt12-express-groomer-c-api.herokuapp.com/services`
+    );
+
+    dispatch({
+      type: GET_GROOMER_SERVICES,
+      payload: res.data,
+    });
+  };
+
+  // ADD NEW GROOMER SERVICE
+  const addNewService = async (newService, id) => {
+    await apiAuth(authState).post(
+      `https://labspt12-express-groomer-c-api.herokuapp.com/services`,
+      newService
+    );
+    await fetchGroomerProfile(id);
+  };
+
+  // UPDATE GROOMER SERVICE
+  const updateGroomerService = async (updatedService, id) => {
+    await apiAuth(authState).put(
+      `https://labspt12-express-groomer-c-api.herokuapp.com/services`,
+      updatedService
+    );
+    await fetchGroomerProfile(id);
+  };
+
+  // DELETE GROOMER SERVICE
+  const deleteGroomerService = async (serviceId, id) => {
+    await apiAuth(authState).delete(
+      `https://labspt12-express-groomer-c-api.herokuapp.com/services/${serviceId}`
+    );
+    await fetchGroomerProfile(id);
+  };
+
   // GET CLIENT PROFILE
   const fetchClientProfile = async profile_id => {
     const res = await apiAuth(authState).get(
@@ -124,6 +164,7 @@ const UserState = props => {
         groomerProfile: state.groomer_profile,
         clientProfile: state.client_profile,
         accountType: state.account_type,
+        groomerServices: state.groomer_services,
         getUserProfile,
         fetchGroomerProfile,
         fetchClientProfile,
@@ -134,6 +175,10 @@ const UserState = props => {
         authState,
         authService,
         updateProfile,
+        getGroomerServices,
+        addNewService,
+        deleteGroomerService,
+        updateGroomerService,
       }}
     >
       {props.children}
