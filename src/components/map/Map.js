@@ -1,81 +1,35 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
-import ReactMapGL, { Marker, Popup } from 'react-map-gl';
-import logo from '../../images/smallest-logo.png';
+import MapBoxGeocoder from '@mapbox/mapbox-gl-geocoder';
+import mapBoxGl from 'mapbox-gl/dist/mapbox-gl';
+import 'mapbox-gl/dist/mapbox-gl.css';
+import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 
-const Map = props => {
-  const [viewport, setViewport] = useState({
-    latitude: 40.7539,
-    longitude: -95,
-    width: '47vw',
-    height: '112vh',
-    zoom: 3,
-  });
+const Map = ({ options, geocoderOptions, children }) => {
+  const [map, setMap] = useState(undefined);
+  const [geocoder, setGeocoder] = useState(undefined);
 
-  // selected groomer on map
-  const [selectedGroomer, setSelectedGroomer] = useState(null);
+  /**  mapbox API token */
+  mapBoxGl.accessToken = process.env.REACT_APP_MAPBOX_TOKEN;
 
-  const history = useHistory();
-
-  // mapbox API token
-  const token = process.env.REACT_APP_MAPBOX_TOKEN;
-
-  // use hook to cause ESC to close popup
+  /** initialize Map box */
   useEffect(() => {
-    const listener = event => {
-      if (event.key === 'Escape') {
-        setSelectedGroomer(null);
-      }
-    };
-    window.addEventListener('keydown', listener);
+    const mapBox = new mapBoxGl.Map(options);
+    setMap(mapBox);
+  }, [options]);
 
-    return () => {
-      window.removeEventListener('keydown', listener);
-    };
-  }, []);
+  /** initialize geocoder */
+  useEffect(() => {
+    if (geocoderOptions) {
+      const mGeocoder = new MapBoxGeocoder({
+        accessToken: mapBoxGl.accessToken,
+        mapboxgl: mapBoxGl,
+        ...geocoderOptions,
+      });
+      setGeocoder(mGeocoder);
+      if (map) map.on('load', () => map.addControl(mGeocoder, 'top-right'));
+    }
+  }, [geocoderOptions, map]);
 
-  return (
-    <div>
-      <ReactMapGL
-        {...viewport}
-        mapboxApiAccessToken={token}
-        onViewportChange={viewport => {
-          setViewport(viewport);
-        }}
-      >
-        {props.groomers.map(item => (
-          <Marker latitude={item.latitude} longitude={item.longitude}>
-            {/* display groomer name on mouseover and navigate to groomer profile on click */}
-            <button
-              onClick={() =>
-                history.push(`/groomer-profile/${item.profile_id}`)
-              }
-              onMouseOver={e => {
-                e.preventDefault();
-                setSelectedGroomer(item);
-              }}
-            >
-              <img src={logo} />
-            </button>
-          </Marker>
-        ))}
-        {selectedGroomer ? (
-          <Popup
-            latitude={selectedGroomer.latitude}
-            longitude={selectedGroomer.longitude}
-            onClose={() => {
-              setSelectedGroomer(null);
-            }}
-          >
-            <div>
-              <h2>{selectedGroomer.name}</h2>
-              <h6>click Escape to close</h6>
-              <h6>click icon to view profile</h6>
-            </div>
-          </Popup>
-        ) : null}
-      </ReactMapGL>
-    </div>
-  );
+  return <div className="map-elements">{children(map, geocoder)}</div>;
 };
 export default Map;
