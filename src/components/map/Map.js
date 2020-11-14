@@ -3,6 +3,7 @@ import MapBoxGeocoder from '@mapbox/mapbox-gl-geocoder';
 import mapBoxGl from 'mapbox-gl/dist/mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
+import './Map.css';
 
 const Map = ({ options, geocoderOptions, children }) => {
   const [map, setMap] = useState(undefined);
