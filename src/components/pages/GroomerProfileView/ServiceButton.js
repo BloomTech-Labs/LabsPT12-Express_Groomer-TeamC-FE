@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Card } from 'antd';
+import { Card } from 'antd';
 
 const SelectionButton = ({ selection, id, handleSelect }) => {
   return (

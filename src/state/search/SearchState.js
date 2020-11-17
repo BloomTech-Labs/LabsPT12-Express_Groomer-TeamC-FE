@@ -52,7 +52,6 @@ const SearchState = props => {
       `https://labspt12-express-groomer-c-api.herokuapp.com/groomers/${profile_id}`
     );
 
-    await console.log(res.data);
     dispatch({
       type: GET_GROOMER_PROFILE,
       payload: res.data,

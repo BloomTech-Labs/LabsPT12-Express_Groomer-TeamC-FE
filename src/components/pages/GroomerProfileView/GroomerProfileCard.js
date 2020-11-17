@@ -1,15 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import {
-  Descriptions,
-  Image,
-  Button,
-  Row,
-  Col,
-  Typography,
-  Rate,
-  Divider,
-} from 'antd';
+import { Button, Row, Col, Typography, Rate, Divider } from 'antd';
 import ServiceCard from './ServiceCard';
 import Scheduler from './Scheduler';
 import './groomerProfile.scss';
@@ -19,7 +10,6 @@ const { Title } = Typography;
 const GroomerProfileCard = ({ groomer, client, createNewAppt }) => {
   const {
     name,
-    email,
     city,
     state,
     avatarUrl,

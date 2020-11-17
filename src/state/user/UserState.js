@@ -76,7 +76,7 @@ const UserState = props => {
     const res = await apiAuth(authState).get(
       `https://labspt12-express-groomer-c-api.herokuapp.com/groomers/${profile_id}`
     );
-    await console.log(res.data);
+
     dispatch({
       type: FETCH_GROOMER_PROFILE,
       payload: res.data,
@@ -165,7 +165,6 @@ const UserState = props => {
       `https://labspt12-express-groomer-c-api.herokuapp.com/appointments/schedule`,
       newAppt
     );
-    await console.log(res);
 
     dispatch({
       type: CREATE_NEW_APPOINTMENT,

@@ -1,13 +1,11 @@
 import React from 'react';
-import { Card, Button, Row, Col, Typography } from 'antd';
+import { Card, Row, Col, Typography } from 'antd';
 
 import './serviceCard.scss';
 
 const { Title } = Typography;
 
 const ServiceCard = ({ services }) => {
-  console.log(services);
-
   return (
     <div className="services-ctn">
       <div className="services-title">
