@@ -15,6 +15,7 @@ function Navbar(props) {
     getUserProfile,
     userProfile,
     setAccountType,
+    fetchClientProfile,
   } = userContext;
   const [userEmail, setUserEmail] = useState();
 
@@ -41,51 +42,63 @@ function Navbar(props) {
   useEffect(() => {
     if (Object.keys(userProfile).length > 0) {
       setAccountType();
+      fetchClientProfile(userProfile.id);
     }
   }, [userProfile]);
 
   return (
-    <Header
+    <div
       style={{
-        backgroundColor: 'white',
+        borderBottom: '1px solid lightgray',
         display: 'flex',
-        justifyContent: 'space-between',
-        borderBottom: '1px solid #D3D3D3',
+        justifyContent: 'center',
       }}
     >
-      <Menu mode="horizontal">
-        <Menu.Item key="1" onClick={() => history.push('/')}>
-          <img src={smallLogo} alt="small-logo" />
-        </Menu.Item>
-        {Object.keys(userProfile).length < 1 ? (
-          <Menu.Item key="2">Express Groomer</Menu.Item>
+      <Header
+        style={{
+          backgroundColor: 'white',
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          margin: '0 auto !important',
+          width: '100%',
+          maxWidth: '1200px',
+        }}
+      >
+        <Menu mode="horizontal" style={{ border: 'none' }}>
+          <Menu.Item key="1" onClick={() => history.push('/')}>
+            <img src={smallLogo} alt="small-logo" />
+          </Menu.Item>
+          {Object.keys(userProfile).length < 1 ? (
+            <Menu.Item key="2">Express Groomer</Menu.Item>
+          ) : (
+            <Menu.Item key="2">{`Welcome, ${userProfile.name}`}</Menu.Item>
+          )}
+        </Menu>
+        {authState.isAuthenticated ? (
+          <Menu mode="horizontal" style={{ border: 'none' }}>
+            <Menu.Item key="3" onClick={() => history.push('/')}>
+              Home
+            </Menu.Item>
+            <Menu.Item key="4" onClick={() => history.push('/user-dash')}>
+              Dashboard
+            </Menu.Item>
+            <Menu.Item key="5" onClick={() => authService.logout()}>
+              Log out
+            </Menu.Item>
+          </Menu>
         ) : (
-          <Menu.Item key="2">{`Welcome, ${userProfile.name}`}</Menu.Item>
+          <Menu mode="horizontal">
+            <Menu.Item key="3" onClick={() => history.push('/')}>
+              Home
+            </Menu.Item>
+            <Menu.Item key="4" onClick={() => history.push('/login')}>
+              Log in
+            </Menu.Item>
+          </Menu>
         )}
-      </Menu>
-      {authState.isAuthenticated ? (
-        <Menu mode="horizontal">
-          <Menu.Item key="3" onClick={() => history.push('/')}>
-            Home
-          </Menu.Item>
-          <Menu.Item key="4" onClick={() => history.push('/user-dash')}>
-            Dashboard
-          </Menu.Item>
-          <Menu.Item key="5" onClick={() => authService.logout()}>
-            Log out
-          </Menu.Item>
-        </Menu>
-      ) : (
-        <Menu mode="horizontal">
-          <Menu.Item key="3" onClick={() => history.push('/')}>
-            Home
-          </Menu.Item>
-          <Menu.Item key="4" onClick={() => history.push('/login')}>
-            Log in
-          </Menu.Item>
-        </Menu>
-      )}
-    </Header>
+      </Header>
+    </div>
   );
 }
 

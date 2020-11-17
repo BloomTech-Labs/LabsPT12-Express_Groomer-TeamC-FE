@@ -1,61 +1,82 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Descriptions, Image, Button } from 'antd';
+import { Button, Row, Col, Typography, Rate, Divider } from 'antd';
+import ServiceCard from './ServiceCard';
+import Scheduler from './Scheduler';
+import './groomerProfile.scss';
 
-const GroomerProfileCard = props => {
-  const { name, email, city, state, avatarUrl } = props.groomer;
+const { Title } = Typography;
+
+const GroomerProfileCard = ({ groomer, client, createNewAppt }) => {
+  const {
+    name,
+    city,
+    state,
+    avatarUrl,
+    ratings,
+    ratingCount,
+    services,
+  } = groomer;
+
+  const [proView, setProView] = useState(1);
+
   let history = useHistory();
   return (
-    <div>
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          margin: '30px 0',
-        }}
-      >
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-          }}
-        >
-          <Image
-            width={200}
-            height={200}
-            src={avatarUrl}
-            fallback="avatar image"
-          />
-          <div
-            style={{
-              width: '300px',
-              backgroundColor: 'light-gray',
-              border: '1px solid gray',
-              borderRadius: '5px',
-              padding: '10px',
-              margin: '10px 0',
-            }}
-          >
-            <Descriptions layout="vertical" column={1}>
-              <Descriptions.Item label="Name">{name}</Descriptions.Item>
-              <Descriptions.Item label="Email">{email}</Descriptions.Item>
-              <Descriptions.Item label="Location">{`${city}, ${state}`}</Descriptions.Item>
-              <Descriptions.Item label="Email">{email}</Descriptions.Item>
-            </Descriptions>
-          </div>
-
-          <Button
-            onClick={() => history.goBack()}
-            style={{
-              backgroundColor: '#00c756',
-              width: '300px',
-            }}
-          >
-            Back to search results
-          </Button>
-        </div>
+    <div className="profile-ctn">
+      <div className="profile">
+        <Row className="profile-row1">
+          <Col className="profile-col" span={8}>
+            <div className="img-ctn">
+              <img id="avatar-img" alt="groomer" src={avatarUrl} />
+            </div>
+          </Col>
+          <Col className="profile-col" span={10}>
+            <div className="name-ctn">
+              <Title id="title-name">{name}</Title>
+              <Title id="title-loc" level={4}>
+                {city}, {state}
+              </Title>
+              <div>
+                <Rate disabled defaultValue={ratings} />
+                <span id="rating-count">({ratingCount})</span>
+              </div>
+            </div>
+          </Col>
+          <Col className="btn-col" span={6}>
+            <div className="btn-ctn">
+              <Button className="profile-btn" onClick={() => history.goBack()}>
+                Back to search results
+              </Button>
+              {proView === 1 && services.length > 0 && (
+                <Button className="profile-btn" onClick={() => setProView(2)}>
+                  Schedule an appointment
+                </Button>
+              )}
+              {proView === 2 && services.length > 0 && (
+                <Button className="profile-btn" onClick={() => setProView(1)}>
+                  Cancel
+                </Button>
+              )}
+            </div>
+          </Col>
+        </Row>
+        <Divider />
+        <Row className="details-row">
+          {proView === 1 && services.length < 1 && (
+            <Title level={4}>This groomer has not added any services yet</Title>
+          )}
+          {proView === 1 && services.length > 0 && (
+            <ServiceCard services={services} />
+          )}
+          {proView === 2 && services.length > 0 && (
+            <Scheduler
+              createNewAppt={createNewAppt}
+              groomer={groomer}
+              client={client}
+              services={services}
+            />
+          )}
+        </Row>
       </div>
     </div>
   );
