@@ -1,0 +1,15 @@
+.schedule-ctn {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  .schedule-title {
+    text-align: center;
+  }
+  .schedule-row1 {
+    .schedule-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+}

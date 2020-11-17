@@ -7,6 +7,7 @@ import {
   FETCH_GROOMER_PROFILE,
   GET_CLIENT_PROFILE,
   GET_GROOMER_SERVICES,
+  CREATE_NEW_APPOINTMENT,
 } from '../types';
 
 export default (state, action) => {
@@ -40,6 +41,11 @@ export default (state, action) => {
       return {
         ...state,
         groomer_services: action.payload,
+      };
+    case CREATE_NEW_APPOINTMENT:
+      return {
+        ...state,
+        client_appointments: action.payload,
       };
     default:
       return state;

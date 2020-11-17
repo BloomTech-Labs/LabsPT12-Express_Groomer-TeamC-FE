@@ -13,12 +13,16 @@ const DashboardContainer = () => {
     authState,
     fetchGroomerProfile,
     fetchClientProfile,
+    clientProfile,
   } = userContext;
 
   useEffect(() => {
     if (accountType === 'groomer') {
       fetchGroomerProfile(userProfile.id);
-    } else if (accountType === 'client') {
+    } else if (
+      accountType === 'client' &&
+      Object.keys(clientProfile).length < 1
+    ) {
       fetchClientProfile(userProfile.id);
     }
   }, [accountType]);

@@ -13,6 +13,7 @@ import {
   UPDATE_PROFILE,
   GET_CLIENT_PROFILE,
   GET_GROOMER_SERVICES,
+  CREATE_NEW_APPOINTMENT,
 } from '../types';
 
 const UserState = props => {
@@ -22,6 +23,7 @@ const UserState = props => {
     groomer_profile: {},
     client_profile: {},
     groomer_services: [],
+    client_appointments: [],
   };
 
   const [state, dispatch] = useReducer(ClientReducer, initialState);
@@ -74,7 +76,7 @@ const UserState = props => {
     const res = await apiAuth(authState).get(
       `https://labspt12-express-groomer-c-api.herokuapp.com/groomers/${profile_id}`
     );
-
+    await console.log(res.data);
     dispatch({
       type: FETCH_GROOMER_PROFILE,
       payload: res.data,
@@ -157,6 +159,20 @@ const UserState = props => {
     await fetchClientProfile(id);
   };
 
+  // CLIENT: CREATE NEW APPOINTMENT WITH GROOMER
+  const createNewAppt = async newAppt => {
+    const res = await apiAuth(authState).post(
+      `https://labspt12-express-groomer-c-api.herokuapp.com/appointments/schedule`,
+      newAppt
+    );
+    await console.log(res);
+
+    dispatch({
+      type: CREATE_NEW_APPOINTMENT,
+      payload: res.data,
+    });
+  };
+
   return (
     <UserContext.Provider
       value={{
@@ -179,6 +195,7 @@ const UserState = props => {
         addNewService,
         deleteGroomerService,
         updateGroomerService,
+        createNewAppt,
       }}
     >
       {props.children}

@@ -1,0 +1,35 @@
+.services-ctn {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  .services-title {
+    text-align: center;
+  }
+  .card-ctn {
+    .cards {
+      width: 100%;
+      display: flex;
+      justify-content: space-evenly;
+      .service-card {
+        margin: 10px;
+        width: 300px;
+        background-color: whitesmoke;
+        .service-details {
+          .card-col1 {
+            display: flex;
+            align-items: center;
+          }
+          .card-col2 {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            #card-cost {
+              display: flex;
+            }
+          }
+        }
+      }
+    }
+  }
+}
