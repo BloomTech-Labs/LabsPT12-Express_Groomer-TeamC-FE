@@ -1,12 +1,16 @@
 import React, { useContext } from 'react';
-import { Layout, Row, Col } from 'antd';
+import { Layout, Row, Col, Typography, Divider } from 'antd';
+import {
+  SearchOutlined,
+  CheckOutlined,
+  ScheduleOutlined,
+} from '@ant-design/icons';
 import { LoggedInOptions } from '../LoggedInOptions';
-import logo from './../../../images/logo_t.png';
 import './landing.scss';
 
-// EXAMPLE OF HOW TO IMPORT AND USE CONTEXT
 import UserContext from '../../../state/user/userContext';
 const { Content } = Layout;
+const { Title } = Typography;
 
 function RenderLandingPage(props) {
   // EXAMPLE OF HOW TO IMPORT AND USE CONTEXT
@@ -19,35 +23,39 @@ function RenderLandingPage(props) {
       <div className="banner-ctn">
         <div className="banner-content">
           <h1>Express Groomer</h1>
-          <div className="img-ctn">
-            <img src={logo} alt="logo" />
-          </div>
           {authState.isAuthenticated ? <LoggedInOptions /> : null}
         </div>
       </div>
       <Content className="content-ctn">
         <div className="mid-ctn">
-          <h1>How it works</h1>
-          <Row className="mid-grid" gutter={32}>
+          <Divider>
+            <Title className="mid-grid-title" level={2}>
+              Get Started
+            </Title>
+          </Divider>
+
+          <Row className="mid-grid" gutter={40}>
             <Col className="grid-cols" span={8}>
-              <h2>Search for groomers</h2>
+              <SearchOutlined className="landing-icon" />
+              <Title level={3}>Search for groomers</Title>
               <p>
-                Tell us what services you are looking for and we will show you a
-                list of highly qualified groomers in your area
+                Find highly qualified, professional pet groomers in your area.
               </p>
             </Col>
             <Col className="grid-cols" span={8}>
-              <h2>Select an appointment time</h2>
+              <CheckOutlined className="landing-icon" />
+              <Title level={3}>Select the services you need</Title>
               <p>
-                Look at the calendar and select a time that works for you and
-                your pet.
+                Every pet professional has different areas of expertise. Pick
+                the groomer with the right set of skills for your pet.
               </p>
             </Col>
             <Col className="grid-cols" span={8}>
-              <h2>Book your appointment</h2>
+              <ScheduleOutlined className="landing-icon" />
+              <Title level={3}>Book your appointment</Title>
               <p>
-                Tell us what services you are looking for and we will show you a
-                list of highly qualified groomers in your area
+                Pick a date, a time, the services you require, and you're all
+                set!
               </p>
             </Col>
           </Row>

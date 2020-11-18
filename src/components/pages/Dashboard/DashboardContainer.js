@@ -29,24 +29,26 @@ const DashboardContainer = () => {
 
   return (
     <div>
-      {authState.isAuthenticated && accountType === 'client' && (
-        <div>
-          {Object.keys(userProfile).length < 1 ? (
-            <Spinner />
-          ) : (
-            <RenderClientDashboard user={userProfile} />
-          )}
-        </div>
-      )}
-      {authState.isAuthenticated && accountType === 'groomer' && (
-        <div>
-          {Object.keys(userProfile).length < 1 ? (
-            <Spinner />
-          ) : (
-            <RenderGroomerDashboard user={userProfile} />
-          )}
-        </div>
-      )}
+      <div>
+        {authState.isAuthenticated && accountType === 'client' && (
+          <div>
+            {Object.keys(userProfile).length < 1 ? (
+              <Spinner />
+            ) : (
+              <RenderClientDashboard user={userProfile} />
+            )}
+          </div>
+        )}
+        {authState.isAuthenticated && accountType === 'groomer' && (
+          <div>
+            {Object.keys(userProfile).length < 1 ? (
+              <Spinner />
+            ) : (
+              <RenderGroomerDashboard user={userProfile} />
+            )}
+          </div>
+        )}
+      </div>
     </div>
   );
 };

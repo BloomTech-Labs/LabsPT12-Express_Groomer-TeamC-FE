@@ -25,7 +25,7 @@ const RenderGroomerDashboard = props => {
 
   return (
     <div>
-      <Layout style={{ margin: '0 60px 60px 60px' }}>
+      <Layout>
         <Content style={{ background: '#FFFFFF', margin: '30px 0 30px 0' }}>
           <Avatar
             style={{

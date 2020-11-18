@@ -47,20 +47,37 @@ function App() {
         <DashboardState>
           <UserState>
             <Navbar />
-            <Switch>
-              <Route exact path="/" component={LandingPage} />
-              <Route path="/login" component={LoginPage} />
-              <Route path="/implicit/callback" component={LoginCallback} />
-              <SecureRoute
-                path="/search-result-page/:city"
-                component={SearchResult}
-              />
-              <SecureRoute
-                path="/groomer-profile/:id"
-                component={GroomerProfile}
-              />
-              <SecureRoute exact path="/user-dash" component={Dashboard} />
-            </Switch>
+            <div
+              style={{
+                width: '100%',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+              }}
+            >
+              <div
+                style={{
+                  maxWidth: '1400px',
+                  margin: '0 auto !important',
+                  width: '100%',
+                }}
+              >
+                <Switch>
+                  <Route exact path="/" component={LandingPage} />
+                  <Route path="/login" component={LoginPage} />
+                  <Route path="/implicit/callback" component={LoginCallback} />
+                  <SecureRoute
+                    path="/search-result-page/:city"
+                    component={SearchResult}
+                  />
+                  <SecureRoute
+                    path="/groomer-profile/:id"
+                    component={GroomerProfile}
+                  />
+                  <SecureRoute exact path="/user-dash" component={Dashboard} />
+                </Switch>
+              </div>
+            </div>
           </UserState>
         </DashboardState>
       </SearchState>

@@ -3,9 +3,9 @@ import RenderLandingPage from './RenderLandingPage';
 
 function LandingContainer({ LoadingComponent }) {
   return (
-    <>
+    <div>
       <RenderLandingPage />
-    </>
+    </div>
   );
 }
 
