@@ -14,12 +14,8 @@
       font-size: 36pt;
       color: white;
       text-shadow: 1px 1px 3px #007a35;
-      margin: 0;
+      margin: 0 0 20px;
       padding: 0;
-    }
-
-    .img-ctn {
-      margin: 10px 0 20px 0;
     }
 
     .search-btn {
@@ -31,18 +27,28 @@
 }
 
 .content-ctn {
-  margin: 0 50px;
+  margin: 0 auto !important;
+  max-width: 1400px;
   padding: 50px 0;
   height: 600px;
+  background-color: white;
 
-  h1 {
-    text-align: center;
-    font-size: 24pt;
+  .ant-divider-horizontal.ant-divider-with-text-center::before,
+  .ant-divider-horizontal.ant-divider-with-text-center::after {
+    border-top: 1px solid gray;
+
+    mid-grid-title {
+      text-align: center;
+    }
   }
 
   .mid-grid {
     text-align: center;
     display: flex;
     justify-content: space-evenly;
+    .landing-icon {
+      font-size: xx-large;
+      margin: 10px 0;
+    }
   }
 }

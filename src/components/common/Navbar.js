@@ -61,8 +61,9 @@ function Navbar(props) {
           flexDirection: 'row',
           justifyContent: 'space-between',
           margin: '0 auto !important',
+          padding: '0',
           width: '100%',
-          maxWidth: '1200px',
+          maxWidth: '1400px',
         }}
       >
         <Menu mode="horizontal" style={{ border: 'none' }}>

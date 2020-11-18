@@ -1,12 +1,26 @@
 import React, { useState } from 'react';
 import SelectionButton from './ServiceButton';
-import { DatePicker, Row, Col, Typography, Button, Card } from 'antd';
+import {
+  DatePicker,
+  Row,
+  Col,
+  Typography,
+  Button,
+  Card,
+  Popconfirm,
+} from 'antd';
 import './scheduler.scss';
 import moment from 'moment';
 
 const { Title } = Typography;
 
-const Scheduler = ({ services, client, groomer, createNewAppt }) => {
+const Scheduler = ({
+  services,
+  client,
+  groomer,
+  createNewAppt,
+  setProView,
+}) => {
   const [newAppt, setNewAppt] = useState({
     client_id: client.id,
     groomer_id: groomer.profile_id,
@@ -65,6 +79,7 @@ const Scheduler = ({ services, client, groomer, createNewAppt }) => {
 
   const handleSubmit = () => {
     createNewAppt(newAppt);
+    setProView(1);
   };
 
   return (
@@ -73,7 +88,7 @@ const Scheduler = ({ services, client, groomer, createNewAppt }) => {
         <Title level={3}>Schedule your appointment</Title>
       </div>
       <Row className="schedule-row1">
-        <Col className="schedule-col" span={8}>
+        <Col className="schedule-col" span={6}>
           <div>
             <Title level={5}>Pick a time</Title>
           </div>
@@ -84,7 +99,7 @@ const Scheduler = ({ services, client, groomer, createNewAppt }) => {
             />
           </div>
         </Col>
-        <Col className="schedule-col" span={8}>
+        <Col className="schedule-col" span={6}>
           <div>
             <Title level={5}>Select service(s)</Title>
           </div>
@@ -102,7 +117,7 @@ const Scheduler = ({ services, client, groomer, createNewAppt }) => {
             })}
           </Card>
         </Col>
-        <Col className="schedule-col" span={8}>
+        <Col className="schedule-col" span={6}>
           <div>
             <Title level={5}>Select a pet</Title>
           </div>
@@ -120,20 +135,38 @@ const Scheduler = ({ services, client, groomer, createNewAppt }) => {
             })}
           </Card>
         </Col>
+        <Col span={6}>
+          <Card className="appt-builder" title="Your Appointment">
+            <div className="details-ctn">
+              <h4>Date/time</h4>
+              <p>{apptView.proDate}</p>
+              <h4>Services</h4>
+              {apptView.proServices.map(service => {
+                return <p>{service}</p>;
+              })}
+              <h4>Pet</h4>
+              <p>{apptView.proPet}</p>
+            </div>
+          </Card>
+        </Col>
       </Row>
-      <Row>
-        <Card title="Your Appointment">
-          <h5>Date/time</h5>
-          <p>{apptView.proDate}</p>
-          <h5>Services</h5>
-          {apptView.proServices.map(service => {
-            return <p>{service}</p>;
-          })}
-          <h5>Pet</h5>
-          <p>{apptView.proPet}</p>
-        </Card>
+      <Row className="schedule-row2">
+        <Col span={6} offset={9}>
+          <Popconfirm
+            placement="bottom"
+            onConfirm={handleSubmit}
+            okText="Would you like to continue this appointment?"
+            cancelText="Cancel"
+          >
+            <Button className="sch-btn">Submit</Button>
+          </Popconfirm>
+        </Col>
+        <Col span={6} offset={9}>
+          <Button className="sch-btn" onClick={() => setProView(1)}>
+            Cancel
+          </Button>
+        </Col>
       </Row>
-      <Button onClick={handleSubmit}>Submit</Button>
     </div>
   );
 };

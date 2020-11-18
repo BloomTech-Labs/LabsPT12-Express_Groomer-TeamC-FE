@@ -74,6 +74,7 @@ const GroomerProfileCard = ({ groomer, client, createNewAppt }) => {
               groomer={groomer}
               client={client}
               services={services}
+              setProView={setProView}
             />
           )}
         </Row>
