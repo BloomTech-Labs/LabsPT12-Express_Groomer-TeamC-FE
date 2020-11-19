@@ -15,7 +15,7 @@ const SearchResultContainer = () => {
   }, []);
 
   return (
-    <div>
+    <div style={{ position: 'absolute', left: 0, top: '64px' }}>
       <MapElements groomers={groomers} />
     </div>
   );

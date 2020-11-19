@@ -26,14 +26,18 @@ const MapListItem = ({ map, place }) => {
     e.preventDefault();
     map.flyTo({
       center: [place.longitude, place.latitude],
-      zoom: 10,
+      zoom: 12,
     });
   };
 
   return (
     <div className="map-place-list__item">
       <h5>
-        <a onClick={handleClick} href="/marker">
+        <a
+          className="map-place-list__first-item"
+          onClick={handleClick}
+          href="/marker"
+        >
           {place.name}
         </a>
         <p>
@@ -82,7 +86,7 @@ const MapElements = props => {
       });
       newState.push({
         ...place,
-        distance,
+        distance: `${parseFloat(distance).toFixed(2)} miles away`,
       });
     }
     setState(newState);
