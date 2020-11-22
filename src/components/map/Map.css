@@ -2,22 +2,26 @@
     box-sizing: border-box;
     }
     
+    .map-elements {
+        width: 100vw;
+        height: calc(100vh - 64px);
+        display: flex
+      }
+
     .map-elements #mapContainer {
-        position: absolute;
         width: 75%;
         height: 100%;
-        left: 25%
       }
     
     .map-place {
-        position: absolute;
         width: 25%;
-        height: 100%
+        height: calc(100vh - 64px)
     }
     
     .map-place-list {
         height: 100%;
-        overflow: auto;
+        overflow-x: hidden;
+        overflow-y: auto;
         padding-bottom: 40px
     }
           
@@ -38,6 +42,10 @@
         border-bottom: 5px solid #CBCBCB
     }
     
+    .map-place-list__first-item {
+        font-size: 14px;
+    }
+
     .map-place-list__last-item {
         cursor: pointer;
         display: block;
